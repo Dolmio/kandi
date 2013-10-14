@@ -2,36 +2,17 @@
 
 \section{Johdanto}
 
-Tämä dokumentti kertoo sekä TIK.kand-kandidaattiseminaarikurssin
-ohjeistuksesta kandidaatintyön muotoseikoista että yleisemmin
-\LaTeX{}-järjestelmän käyttämisestä opinnäytetyön kirjoittamisessa.
+Tämä kandidaatintyö käsittelee menetelmiä, joilla silmän fiksaatioita
+voidaan tunnistaa katseentunnistuslaitteiden keräämästä datasta. Katseentunnistuksen tarkoituksena on selvittää minne ihminen on katsomassa. On yleisesti hyväksyttyä, että ne alueet, joihin ihmisen katse on suuntautunut ovat alueita, jotka ovat jollakin tapaa tärkeitä tai kiinnostavia katsojalleen. \citet[s.33]{munn2008}
 
-\subsection{Tämän dokumentin tausta}
+Analysoitaessa katseentunnistuslaitteden keräämää dataa jaetaan kerätyt datapisteet usein joko fiksaatioiksi tai sakkadeiksi. \citet[s. 71]{salvucci2000} Fiksaatio voidaan määritellä tarkoittamaan aluetta, johon katse pysähtyy ja jonka aikana tapahtuu kognitiivista prosessointia, joka mahdollistaa "näkemisen" ihmiselle. \citet[s. 71]{salvucci2000} \citet[s. 881]{Blignaut2009}
 
-% Kokeile mitä kappaleen viimeisen rivin lopulle käy, 
-% kun sloppypar-ympäristön kommentoi pois: joku rivi
-% saattaa ylittää marginaalin. Sloppypar-ympäristössä
-% sanojen välissä olevaa tyhjää voi olla enemmänkin
-% jotta marginaalin ylityksiä ei tapahdu.
-\begin{sloppypar}
-  Tämä on TIK.kand-kurssin \LaTeX{}-pohja, jota voi vapaasti
-  käyttää. Koko zip-paketin voi ladata kurssin Noppa-sivulta
-  \url{https://noppa.aalto.fi/noppa/kurssi/TIK.kand/materiaali/}.
-  Pura zip-paketti, avaa \verb!main.pdf! ja samalla katso ja muokkaa
-  tex- ja bib-tiedostoja vapaasti. Juuri tämä teksti löytyy
-  tiedostosta \verb!luku_sisalto.tex!. Muutoksen jälkeen voit katsoa
-  tilannetta komentamalla \verb!make! ja mahdollisesti päivittämällä
-  PDF-version (reload). Yritä olla koskematta sty- ja
-  bst-tyylitiedostoihin. Luvun~\ref{sec:esimluku} alussa on mainittu
-  hyviä lähteitä \LaTeX{}in opetteluun ja käyttämiseen.
-\end{sloppypar}
+Fiksaatoiden tunnistaminen on usein ensimmäinen vaihe katseentunnistuslaitteen keräämän datan analysointia ja sen tarkoituksena on helpottaa korkeamman tason analyysin tekemistä pienentämällä käsiteltävän datajoukon kokoa yhdistämällä datapisteitä fiksaatioiksi ja seulomalla siitä pois sakkadit, eli nopeat siirtymät fiksaatioista toiseen. \citet[s. 18]{mould2012}
 
-Teksti ja koodi on peräisin TIK.kand-kurssin historiallisesta
-\LaTeX{}-pohjasta, jota kurssin koordinaattori Jukka Parviainen
-uudisti tammikuussa 2011.  Lisäksi suomen kielen lehtori Sanni
-Heinzmann on kirjoittanut rakenteellisia vinkkejä luvuittain
-(tiivistelmä, käytetyt lyhenteet, johdanto, loppuluku, liitteet).
-Viimeisin päivitys on syyskuulta 2011.
+
+
+
+
 
 \subsection{Johdantoluku}
 % Sanni Heinzmann
