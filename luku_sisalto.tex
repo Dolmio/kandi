@@ -36,7 +36,18 @@ Lopuksi johtopäätöksissä...
 
 \section{Silmän liikeanalyysin algoritmit}
 \subsection{Yksinkertainen nopeusraja-arvoon perustuva tunnistusalgoritmi I-VT}
-Seuraavaksi esiteltävä fiksaationtunnistusalgoritmi on kaikista kirjallisuudesta esiin tulleista algoritmeista yksinkertaisin ja helpoin ymmärtää. Algoritmin ideana on, että lasketaan jokaisen datapistevälin nopeus ja pidetään pistevälejä joiden nopeus on pienempi kuin asetettu nopeusraja-arvo fiksaatioina ja pistevälejä joiden nopeus on suurempi kuin raja-arvo sakkadeina. \citet[s. 73]{salvucci2000} JATKUU
+I-VT fiksaationtunnistusalgoritmi on kaikista kirjallisuudesta esiin tulleista algoritmeista yksinkertaisin ja helpoin ymmärtää. Algoritmin ideana on, että lasketaan jokaisen datapistevälin nopeus ja pidetään pistevälejä joiden nopeus on pienempi kuin asetettu nopeusraja-arvo fiksaatioina ja pistevälejä joiden nopeus on suurempi kuin raja-arvo sakkadeina. Pistevälin nopeus on sama kuin pistevälin pisteiden etäisyys toisistaan, jos oletetaan, että datapisteiden välinen aika on vakio. Kun pistevälien nopeudet on laskettu, yhdistetään algoritmissa peräkkäiset fiksaatiopisteet fiksaatioryhmiksi ja hylätään sakkadipisteet. Lopuksi jokainen fiksaatioryhmä muutetaan muotoon <x,y,d,t>, jossa x:n ja y:n arvot lasketaan ryhmän keskiarvosta kummallekin muuttujalle. T:lle annetaan aika, joka kuului ensimmäiselle fiksaatioryhmään kuuluvalle pisteelle ja d:lle koko fiksaatioryhmän kesto. \citep[s. 73]{salvucci2000}
+
+ Jotta I-VT algoritmia voisi käyttää tarvitsee sille määritellä vain yksi parametri, nopeusraja-arvo. Mikäli silmän etäisyys havainnoitavaan kohteeseen tunnetaan voidaan nopeusraja-arvo johtaa kulmanopeudesta, joka silmällä on suhteessa katsottavaan kohteeseen. Esimerkiksi \citet[s. 1099]{itti2005} on käyttänyt kulmanopeuden raja-arvona 20 astetta / sekunti niin kuin myös \citet[s. 73]{salvucci2000}:n mukaan \citep[s. 103-111]{megaw1984}.
+Mikäli etäisyyttä havainnoitavaan kohteeseen ei tunneta niin nopeusraja-arvon määrittämisessä on vain käytettävä eksploratiivista data analyysia aineistoon, jossa otetaan huomioon mm. näytteenottotaajuus.
+
+I-VT on yksinkertainen implementoida kuten liitteestä \textbf{\nameref{sec:IVT-implementation}}  voidaan nähdä. Koska algoritmi käsittelee vain pientä osaa datajoukosta kerralla on se erittäin tehokas ja soveltuu hyvin reaaliaikaiseen datan analysointiin. \citet[s. 76]{salvucci2000} Suurimmat ongelmat algoritmilla esiintyvät silloin kun pistevälien nopeudet ovat lähellä raja-arvoa. Tällöin syntyy herkästi paljon fiksaatioryhmiä, joissa on vain muutamia peräkkäisiä pisteitä, jolloin näyttää helposti siltä, että fiksaatiota on todellista enemmän. Tätä ongelmaa on kierretty esimerkiksi ryhmittämällä tarpeeksi lähellä toisiaan olevat fiksaatioita yhteen katsealueiksi. \citep[s. 329]{just1980} Toinen keino ongelman kiertämiseksi on vaatia sakkadeilta minimikestoa. \citep[s. 103-111]{megaw1984}
+
+\subsection{Dispersioraja-arvoon perustuva tunnistusalgoritmi I-DT}
+I-DT tunnistusalgoritmin perustana on havainto siitä, että koska fiksaatiopisteillä on matala nopeus on niillä taipumus kasaantua lähelle toisiaan. Algoritmi
+
+
+
 \label{sec:esimluku}
 
  --------------------------------------------------------------------
