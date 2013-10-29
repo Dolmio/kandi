@@ -1,13 +1,13 @@
 \section{Johdanto}
 
 Tämä kandidaatintyö käsittelee menetelmiä, joilla silmän fiksaatioita
-voidaan tunnistaa katseentunnistuslaitteiden keräämästä datasta. Katseentunnistuksen tarkoituksena on selvittää minne ihminen on katsomassa. On yleisesti hyväksyttyä, että ne alueet, joihin ihmisen katse on suuntautunut ovat alueita, jotka ovat jollakin tapaa tärkeitä tai kiinnostavia katsojalleen. \citet[s.33]{munn2008}
+voidaan tunnistaa katseentunnistuslaitteiden keräämästä datasta. Katseentunnistuksen tarkoituksena on selvittää minne ihminen on katsomassa. On yleisesti hyväksyttyä \citep[s.33]{munn2008}, että ne alueet, joihin ihmisen katse on suuntautunut ovat alueita, jotka ovat jollakin tapaa tärkeitä tai kiinnostavia katsojalleen. 
 
-Analysoitaessa katseentunnistuslaitteden keräämää dataa jaetaan kerätyt datapisteet usein joko fiksaatioiksi tai sakkadeiksi. \citet[s. 71]{salvucci2000} Fiksaatio voidaan määritellä tarkoittamaan aluetta, johon katse pysähtyy ja jonka aikana tapahtuu kognitiivista prosessointia, joka mahdollistaa "näkemisen" ihmiselle. \citet[s. 71]{salvucci2000} \citet[s. 881]{Blignaut2009}
+Analysoitaessa katseentunnistuslaitteden keräämää dataa jaetaan kerätyt datapisteet usein joko fiksaatioiksi tai sakkadeiksi. \citep[s. 71]{salvucci2000} Fiksaatio voidaan määritellä tarkoittamaan aluetta, johon katse pysähtyy \citep[s. 71]{salvucci2000} ja jonka aikana tapahtuu kognitiivista prosessointia, joka mahdollistaa ``näkemisen''  ihmiselle. \citep[s. 881]{Blignaut2009}
 
-Fiksaatoiden tunnistaminen on usein ensimmäinen vaihe katseentunnistuslaitteen keräämän datan analysointia ja sen tarkoituksena on helpottaa korkeamman tason analyysin tekemistä pienentämällä käsiteltävän datajoukon kokoa yhdistämällä datapisteitä fiksaatioiksi ja seulomalla siitä pois sakkadit, eli nopeat siirtymät fiksaatioista toiseen. \citet[s. 18]{mould2012}
+Fiksaatoiden tunnistaminen on usein ensimmäinen vaihe katseentunnistuslaitteen keräämän datan analysointia ja sen tarkoituksena on helpottaa korkeamman tason analyysin tekemistä identifioimalla olennaiset osat datajoukosta yhdistämällä datapisteitä fiksaatioiksi ja seulomalla siitä pois sakkadit, eli nopeat siirtymät fiksaatioista toiseen. \citep[s. 18]{mould2012}
 
-Katseentunnistuslaitteiden ja usein niiden mukana tulevien valmiiden katsedatan analysointiohjelmistojen käyttäminen tutkimuksessa on tehnyt helpoksi aliarvioida merkityksen, joka käytetyllä fiksaation tunnistusalgoritmilla on lopulliseen analyysiin datasta. \citet[s. 111]{shic2008}
+Katseentunnistuslaitteiden ja usein niiden mukana tulevien valmiiden katsedatan analysointiohjelmistojen käyttäminen tutkimuksessa on tehnyt helpoksi aliarvioida merkityksen, joka käytetyllä fiksaation tunnistusalgoritmilla on lopulliseen analyysiin datasta. \citep[s. 111]{shic2008}
 Tämän työn tavoitteena onkin auttaa katseentunnistuksesta kerättyä dataa hyödyntävää tutkijaa ymmärtämään taustalla käytetyn fiksaatioiden tunnistusalgoritmin merkitystä vastaamalla seuraaviin kysymyksiin:
 \begin{itemize}
 	\item Miten fiksaatio määritellään?
@@ -18,15 +18,15 @@ Tämän työn tavoitteena onkin auttaa katseentunnistuksesta kerättyä dataa hy
 	\item Kuinka esitellyt fiksaationtunnistusmenetelmät vertautuvat kaupalliseen toteutukseen?
 \end{itemize}
 
-Työ on rajattu niin, että siinä ei tulla käsittelemään erilaisia menetelmiä, joilla katseentunnistuslaite voi kerätä datansa. Työssä ei myöskään tulla selvittämään syvällisesti minkälaisia sovelluksia silmän liikedatan käytölle on olemassa. Työn fokus tulee siis yllä esitettyjen tutkimuskysymysten mukaisesti olemaan fiksaationtunnistusalgoritmeissa sekä siinä kuinka fiksaatiodataa voidaan yhdistää videokuvaan ihmisen näkökentästä.
+Työ on rajattu niin, että siinä ei tulla käsittelemään erilaisia menetelmiä, joilla katseentunnistuslaite voi kerätä datansa. Työssä ei myöskään tulla selvittämään syvällisesti minkälaisia sovelluksia silmän liikedatan käytölle on olemassa. Työssä tullaan yllä esitettyjen tutkimuskysymysten mukaisesti keskittymään fiksaationtunnistusalgoritmeihin sekä siihen kuinka fiksaatiodataa voidaan yhdistää videokuvaan ihmisen näkökentästä.
 
-Menetelmänä tutkimuskysymysten ratkaisemisessa käytetään kirjallisuuskatsausta tutkimukseen, jota havaitsemisen psykologian ja konenäön aloilla on tutkimuskysymyksiin liittyen tehty. Tämän lisäksi työ sisältää kokeellisen osuuden, jossa verrataan kirjallisuudesta löydettyjen algoritmeja kaupallisen katseentunnistuslaitteen mukana tulleen ohjelmiston tuottamaan fiksaatiodataan. Vertailemalla kirjallisuudesta löytyviä menetelmiä kaupalliseen toteutukseen selvitetään kuinka lähelle kaupallisen toteutuksen tuloksia kirjallisuudesta löytyvillä menetelmillä on mahdollista päästä sekä kuinka haastavaa menetelmiä on toteuttaa. Näin tutkijan on mahdollista evaluoida, missä tapauksissa oman implementaation toteuttaminen olisi järkevää.
+Tutkimuskysymysten ratkaisemiseksi tehtiin kirjallisuuskatsaus tutkimukseen, jota havaitsemisen, psykologian ja konenäön aloilla on tutkimuskysymyksiin liittyen tehty. Tämän lisäksi työ sisältää kokeellisen osuuden, jossa verrataan kirjallisuudesta löydettyjen algoritmeja kaupallisen katseentunnistuslaitteen mukana tulleen ohjelmiston tuottamaan fiksaatiodataan. Vertailemalla kirjallisuudesta löytyviä menetelmiä kaupalliseen toteutukseen selvitetään kuinka lähelle kaupallisen toteutuksen tuloksia kirjallisuudesta löytyvillä menetelmillä on mahdollista päästä sekä kuinka haastavaa menetelmiä on toteuttaa. Näin tutkijan on mahdollista evaluoida, missä tapauksissa oman implementaation toteuttaminen olisi järkevää.
 
-Yllä esitetyt tutkimuskysymykset tukevat työn rakennetta niin, että ne tullaan ratkaisemaan siinä järjestyksessä kuin ne on esitetty. Johdannon jälkeisessä luvussa "Silmän liikeanalyysin tutkimus" esitellään ja selitetään terminologiaa, jota tutkimuksen aihepiiriin kuuluu sekä esitetään kuinka tietoa tutkimukseen on haettu. VARMAAN JOTAIN MUUTA KANSSA...
+Yllä esitetyt tutkimuskysymykset tukevat työn rakennetta niin, että ne tullaan ratkaisemaan siinä järjestyksessä kuin ne on esitetty. Johdannon jälkeisessä luvussa ``Silmän liikeanalyysin tutkimus''  esitellään ja selitetään terminologiaa, jota tutkimuksen aihepiiriin kuuluu sekä esitetään kuinka tietoa tutkimukseen on haettu. VARMAAN JOTAIN MUUTA KANSSA...
 
-Tämän jälkeen kolmannessa luvussa "Silmän liikeanalyysin algoritmit" esitellään kirjallisuudesta löytyneitä algoritmeja ja vertaillaan niitä toisiinsa kirjallisuuden perusteella. Tämän lisäksi luvussa esitellään taksonomia, jonka perusteella algoritmeja voi luokitella. Luvun perusteella lukija saa käsityksen siitä millaisia liikeanalyysin algoritmit tyyppillisesti ovat ja mitkä ovat kunkin esitellyn algoritmin vahvuudet ja heikkoudet.
+Tämän jälkeen kolmannessa luvussa ``Silmän liikeanalyysin algoritmit''  esitellään kirjallisuudesta löytyneitä algoritmeja ja vertaillaan niitä toisiinsa kirjallisuuden perusteella. Tämän lisäksi luvussa esitellään taksonomia, jonka perusteella algoritmeja voi luokitella. Luvun perusteella lukija saa käsityksen siitä millaisia liikeanalyysin algoritmit tyyppillisesti ovat ja mitkä ovat kunkin esitellyn algoritmin vahvuudet ja heikkoudet.
 
-Luvussa neljä "Fiksaatioiden tunnistaminen liikedatasta" sovelletaan kirjallisuudesta löydettyjä algoritmeja käytäntöön ja verrataan niiden tuloksia kaupallisen toteutuksen tuottamaan dataan. LISÄÄ TARVITAAN
+Luvussa neljä ``Fiksaatioiden tunnistaminen liikedatasta''  sovelletaan kirjallisuudesta löydettyjä algoritmeja käytäntöön ja verrataan niiden tuloksia kaupallisen toteutuksen tuottamaan dataan. LISÄÄ TARVITAAN
 
 Lopuksi johtopäätöksissä...
  
