@@ -22,6 +22,45 @@
                             velocityTreshold)))
 \end{verbatim}
 
+\section{I-DT dispersioraja-arvoon perustuva tunnistusalgoritmi}
+\label{sec:IDT-implementation}
+\begin{verbatim}
+(defn dispersionOf [points]
+  "D = [max(x) - min(x)] + [max(y) - min(y)]"
+  (let [x-positions (map #(:x %) points)
+        y-positions (map #(:y %) points)]
+    (+ (- (apply max x-positions) (apply min x-positions))
+       (- (apply max y-positions) (apply min y-positions)))))
+
+(defn tooMuchDispersion [points maxDispersion]
+  (> (dispersionOf points) maxDispersion))
+
+(defn notFailedMeasurement [point]
+  (not (and (= 0 (:x point)) (= 0 (:y point)))))
+
+(defn getRawFixationGroups [points maxDispersion]
+  (let [initialReduceValue []]
+  (reduce (fn [output point]
+    (let [window (concat (last output) [point])]
+           (if (tooMuchDispersion (filter notFailedMeasurement window) maxDispersion)
+             (conj (vec output) [point])
+             (if (or (empty? output) (= 1 (count output)))
+               [window]
+               (concat (drop-last output) [window]))))) initialReduceValue points)))
+
+(defn collapseFixationGroupsByCenterOfMass [fixationGroups]
+ (map #(centerOfMass %) fixationGroups))
+
+(defn filterTooShortFixationGroups [fixationGroups minFixationGroupSize]
+  (filter #(>= (count %) minFixationGroupSize) fixationGroups))
+
+(defn getFixations [pointsVector maxDispersion minFixationGroupSize]
+  (-> pointsVector
+      (getRawFixationGroups maxDispersion)
+      (filterTooShortFixationGroups minFixationGroupSize)
+      (collapseFixationGroupsByCenterOfMass)))
+\end{verbatim}
+
 %\subsection{Esimerkkiliitteen otsikko 1}
 %\label{sec:app1_1}
 %
