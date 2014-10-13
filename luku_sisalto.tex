@@ -61,8 +61,13 @@ I-DT on hieman monimutkaisempi implementoida kuin I-VT kuten liitteestä \emph{\
 
 Markovin piilomalli (Hidden Markov Model, HMM) on tilastollinen malli, jonka taustalla on Markovin prosessi, jonka parametreja ei tunneta. Markovin piilomallin tavoitteena on pyrkiä päättelemään eri tilojen väliset siirtymätodennäköisyydet havaittavien lopputulemien perusteella. Markovin piilomalleja on käytetty laajasti puheentunnistuksen sekä käsialantunnistuksen alueilla.\citep[s. 257-286]{rabiner1989tutorial}
 
-Kun fiksaatioiden tunnistamiseen käytetään Markovin piilomallia voidaan tunnistamisen ongelma jakaa kaksitilaiseen Markovin piilomalliin kuten kuvasta voidaan nähdä.
+Kun fiksaatioiden tunnistamiseen käytetään Markovin piilomallia voidaan tunnistamisen ongelma jakaa kaksitilaiseen Markovin piilomalliin kuten kuvasta~\ref{fig:hmm_sample} voidaan nähdä.
 
+\begin{figure}[h]
+    \includegraphics[width=1.0\textwidth]{HMM.png}
+		\caption{Markovin piilomalli}
+		\label{fig:hmm_sample}
+\end{figure}
 
 
 \subsection{Minimium spanning tree}
