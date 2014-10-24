@@ -52,23 +52,30 @@ Dispersioehto voidaan määritellä algoritmissa monella eri tavalla. Helposti e
 
 Kolmas keino dispersioehdon määrittämiseksi on massakeskipiste-etäisyys metodi, jossa vaaditaan, että M N:stä pisteestä tulee olla raja-arvo etäisyyden sisällä N pisteen massakeskipisteestä. Edellä mainitulle metodille löytyy myös variantti, jossa M N:stä pisteen etäisyyksien normaalijakauma massakeskipisteeseen on maksimissaan asetettu raja-arvo. Jos ehtojen implementaatiota halutaan yksinkertaistaa voidaan M asettaa N:ksi. \citep[s.111] {shic2008}
 
-I-DT tarvitsee siis toimiakseen kahta parametria, dispersioraja-arvoa sekä fiksaation minimikestoa. Mikäli silmän etäisyys katsottavaan kohteeseen on tunnettu voidaan dispersioraja-arvona käyttää etäisyyttä, joka syntyy vastakkaiselle kateetille 0,5-1 asteen kulmasta silmästä kohteeseen. MUOTOILE PAREMMIN!! Minimikestoksi voidaan antaa jokin arvo 100ms ja 200ms väliltä. \citep[s. 74]{salvucci2000}
+I-DT tarvitsee siis toimiakseen kahta parametria, dispersioraja-arvoa sekä fiksaation minimikestoa. Mikäli silmän etäisyys katsottavaan kohteeseen on tunnettu voidaan dispersioraja-arvona käyttää etäisyyttä, joka syntyy vastakkaiselle kateetille 0,5-1 asteen kulmasta silmästä kohteeseen. Minimikestoksi voidaan antaa jokin arvo 100ms ja 200ms väliltä. \citep[s. 74]{salvucci2000}
 
 I-DT on hieman monimutkaisempi implementoida kuin I-VT kuten liitteestä \emph{\nameref{sec:IDT-implementation}} voidaan nähdä, mutta edelleen kuitenkin kohtuullisen yksinkertainen. Algoritmi toimii lineaarisessa ajassa, jotenka se soveltuu I-VT:n tavoin reaaliaikaiseen fiksaatioiden tunnistukseen. Koska algoritmissa käytetään minimikestoa fiksaatiolle ei se kärsi samalla tavalla huojunnasta fiksaation ja sakkadin välillä, niin kuin I-VT voi tehdä. Suurimpana heikkoutena I-DT:llä on vahvasti toisistaan riippuvat kaksi parametria. Esimerkiksi pienellä dispersioraja-arvolla ja suurella fiksaation minimiajalla ei välttämättä löydetä yhtään fiksaatiota. Parametrien riippuvuus toisistaan tarkoittaa sitä, että niiden asettamisessa on oltava erityisen huolellinen.
 
 
 \subsection{Markovin piilomalliin perustuva tunnistusalgoritmi}
 
-Markovin piilomalli (Hidden Markov Model, HMM) on tilastollinen malli, jonka taustalla on Markovin prosessi, jonka parametreja ei tunneta. Markovin piilomallin tavoitteena on pyrkiä päättelemään eri tilojen väliset siirtymätodennäköisyydet havaittavien lopputulemien perusteella. Markovin piilomalleja on käytetty laajasti puheentunnistuksen sekä käsialantunnistuksen alueilla.\citep[s. 257-286]{rabiner1989tutorial}
+Markovin piilomalli (Hidden Markov Model, HMM) on tilastollinen malli, jonka taustalla on Markovin prosessi, jonka parametreja ei tunneta. Markovin piilomallin tavoitteena on pyrkiä päättelemään eri tilojen väliset siirtymätodennäköisyydet havaittavien lopputulemien perusteella. Markovin piilomalleja on käytetty laajasti puheentunnistuksen sekä käsialantunnistuksen tutkimuksessa.\citep[s. 257-286]{rabiner1989tutorial}
 
-Kun fiksaatioiden tunnistamiseen käytetään Markovin piilomallia voidaan tunnistamisen ongelma jakaa kaksitilaiseen Markovin piilomalliin kuten kuvasta~\ref{fig:hmm_sample} voidaan nähdä.
+Kun fiksaatioiden tunnistamiseen sovelletaan Markovin piilomallia voidaan tunnistamisen ongelma jakaa kaksitilaiseen malliin kuten kuvasta~\ref{fig:hmm_sample} voidaan nähdä. 
 
 \begin{figure}[h]
     \includegraphics[width=1.0\textwidth]{HMM.png}
-		\caption{Markovin piilomalli}
+		\caption{Markovin piilomalli KORJAA JAKAUMAT!}
 		\label{fig:hmm_sample}
 \end{figure}
 
+Malli koostuu havainto sekä siirtymätodennäköisyyksistä. Havaintotodennäköisyydet (v jakaumat kuvassa) edustavat tietyn tilan nopeuksien jakaumaa. Ensimmäinen tila edustaa fiksaatiota ja siitä johtuen sen nopeusjakauma on painottunut matalampiin nopeuksiin. Toinen tila edustaa sakkadeja ja vastaavasti sen nopeusjakauma on painottunut suurempiin nopeuksiin. Siirtymätodennäköisyyksiä esittävät kuvassa~\ref{fig:hmm_sample} esiintyvät nuolet ja ne tarkoittavat sitä todennäköisyyttä, jolla tila joko pysyy samana tai muuttuu sakkadista fiksaatioksi tai päinvastoin.
+
+Malli tarvitsee toimiakseen kahdeksan parametria: molempien tilojen nopeusjakaumien keskiarvon ja varianssin sekä todennäköisyydet tilasiirtymille. Vaikka parametreja onkin enemmän kuin esimerkiksi nopeusraja-arvoalgoritmissa niin tämä ei ole ongelma, koska parametrien arvot ovat optimoitavissa harjoitteludatajoukon avulla menetelmällä nimeltä ``HMM uudelleen arviointi'' (HMM reestimation).\citep[s. 180]{salvucci1999} Suurin haaste tämän algoritmin käytössä onkin parametrien optimoinnin implementointi. Tähän olisikin suositeltavaa käyttää jotakin valmista kirjastoa, jos sellainen vain käytettälle ympäristölle on saatavissa.
+
+Kun mallin parametrit on saatu määriteltyä voidaan mallia käyttää arvioimaan jokaiselle datajoukon pisteelle kuuluuko se fiksaatiohin vai sakkadeihin. Luokittelu tehdään HMM-dekoodaus menetelmällä, jossa etsitään todennäköisin sarja tiloja, joka määritellyn mallin perustella syntyy kun sille syötetään uusi datajoukko. Tämän todennäköisimmän sarjan laskentaan voidaan käyttää Viterbin algoritmia.\citep[s. 178]{salvucci1999}  Peräkkäiset fiksaatioiksi luokitellut pisteet yhdistetään myös toisiinsa samalla tavoin kuin nopeusraja-arvoalgoritmissa tehtiin.\citep[s. 31]{salvucci1999} Mallin parametrien optimoinnin jälkeen mallia voidaankin käyttää myös uusien datajoukkojen analysointiin, kunhan datajoukko on kerätty samassa ympäristössä ja olosuhteissa.
+
+Markovin piilomalliin perustuva algoritmi toimii myöskin lineaarisessa ajassa kuten nopeusraja-arvo algoritmi, jotenka sitä voidaan käyttää myös reaaliaikaisuutta vaativissa ympäristöissä. Algoritmi tunnisti myös fiksaatiot tehokkaammin kuin nopeusraja-arvo algoritmi paljon häiriöitä sisältäneestä datasta \citet[s. 32]{salvucci1999}:n tekemässä tutkimuksessa.
 
 \subsection{Minimium spanning tree}
 \subsection{Suorituskyvyn mittaaminen}
