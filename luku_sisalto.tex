@@ -57,7 +57,7 @@ I-DT tarvitsee siis toimiakseen kahta parametria, dispersioraja-arvoa sekä fiks
 I-DT on hieman monimutkaisempi implementoida kuin I-VT kuten liitteestä \emph{\nameref{sec:IDT-implementation}} voidaan nähdä, mutta edelleen kuitenkin kohtuullisen yksinkertainen. Algoritmi toimii lineaarisessa ajassa, jotenka se soveltuu I-VT:n tavoin reaaliaikaiseen fiksaatioiden tunnistukseen. Koska algoritmissa käytetään minimikestoa fiksaatiolle ei se kärsi samalla tavalla huojunnasta fiksaation ja sakkadin välillä, niin kuin I-VT voi tehdä. Suurimpana heikkoutena I-DT:llä on vahvasti toisistaan riippuvat kaksi parametria. Esimerkiksi pienellä dispersioraja-arvolla ja suurella fiksaation minimiajalla ei välttämättä löydetä yhtään fiksaatiota. Parametrien riippuvuus toisistaan tarkoittaa sitä, että niiden asettamisessa on oltava erityisen huolellinen.
 
 
-\subsection{Markovin piilomalliin perustuva tunnistusalgoritmi}
+\subsection{Markovin piilomalliin perustuva tunnistusalgoritmi I-HMM}
 
 Markovin piilomalli (Hidden Markov Model, HMM) on tilastollinen malli, jonka taustalla on Markovin prosessi, jonka parametreja ei tunneta. Markovin piilomallin tavoitteena on pyrkiä päättelemään eri tilojen väliset siirtymätodennäköisyydet havaittavien lopputulemien perusteella. Markovin piilomalleja on käytetty laajasti puheentunnistuksen sekä käsialantunnistuksen tutkimuksessa.\citep[s. 257-286]{rabiner1989tutorial}
 
@@ -77,10 +77,24 @@ Kun mallin parametrit on saatu määriteltyä voidaan mallia käyttää arvioima
 
 Markovin piilomalliin perustuva algoritmi toimii myöskin lineaarisessa ajassa kuten nopeusraja-arvo algoritmi, jotenka sitä voidaan käyttää myös reaaliaikaisuutta vaativissa ympäristöissä. Algoritmi tunnisti myös fiksaatiot tehokkaammin kuin nopeusraja-arvo algoritmi paljon häiriöitä sisältäneestä datasta \citet[s. 32]{salvucci1999}:n tekemässä tutkimuksessa.
 
-\subsection{Minimium spanning tree}
+\subsection{Pienimpään viritettyyn puuhun perustuva tunnistusalgoritmi I-MST}
+I-MST-algoritmi on I-DT algoritmin ohella yksi tunnistusalgoritmeista, joka perustuu datapisteiden sijaintitiedon hyväksikäyttämiselle. Viritetyllä puulla tarkoitetaan puuta, joka kulkee graafin jokaisen pisteen kautta muodostamatta syklejä. Pienin viritetty puu on kaikista mahdollisista viritetyistä puista, joita graafista voidaan muodostaa se puu, jonka sivujen kustannusten muodostama summa on pienin. Sovellettaessa tunnistusalgoritmiin kustannuksella tarkoitetaan etäisyyttä, joka pistellä on toiseen pisteeseen.
+
+Ensimmäiseksi algoritmissa jaetaan datajoukon pisteet osiin niin, että jokaisen osan pituus ajassa on se, mitä arvellaan pisimmän sakkadin datajoukossa olevan. Komogortsev käytti tutkimuksessaan tähän arvoa 200ms.\citep[s. 3 ]{komogortsev2010}. Tämän jälkeen jokaisesta osasta etsitään oma pienin viritetty puunsa. Graafi muodostetaan yhdistämällä jokainen osajoukon piste toisiinsa sivulla ja antamalla sivun kustannukseksi pisteiden välinen etäisyys. Pienimmän viritetyn puun löytämiseen voidaan käyttää Primin algoritmia.\citep[s. 75]{salvucci2000} Kun pienin viritetty puu on löydetty käydään sen pisteet läpi järjestyksessä jakaen pisteet sakkadeihin tai fiksaatiohin riippuen siitä onko etäisyys edelliseen pisteeseen suurempi vai pienempi kuin asetettu etäisyysraja-arvo.
+
+On huomattava, että kun pienin viritetty puu muodostetaan ja fiksaatioita luokitellaan sen jälkeen, niin tietoa siitä missä järjestyksessä pisteet ovat alkuperäisessä datajoukossa ei oteta huomioon. Koska alkuperäinen datajoukko on alunperin jaettu pieniin osiin ennen puiden muodostamista, niin sillä että tieto puun pisteiden ajallisista suhteista hylätään ei ole juurikaan merkitystä. Itse asiassa tämä hylkääminen on algoritmille hyvä asia, koska silloin se kestää häiriöpisteitä hyvin. Esimerkiksi tilanteessa, jossa meillä on neljä peräkkäistä datapistettä, joista pisteet yksi, kaksi ja neljä ovat lähellä toisiaan ja kolmas piste on häiriöpiste kaukana muista, niin pisteet yksi, kaksi ja neljä tullaan luokittelemaan fiksaatioiksi, koska pisteistä muodostetussa pienimmässä viritetyssä puussa kolmas piste ei tule olemaan muiden pisteiden välissä vaan reunalla, jolloin ei muodostu kuin yksi sakkadiksi luokiteltava piste kahden sijasta, joka tapahtuisi jos käytettäisiin I-VT-algoritmia.
+
+I-MST tarvitsee toimiakseen kaksi parametria: ajan jonka mukaan datajoukko jaetaan pienempiin osiin sekä etäisyysraja-arvon. Komogortsev ei tutkimuksessaan perustellut, mistä hänen käyttämänsä arvo 200ms datajoukon jakamiseen oli saatu muuten kuin, että se oli arvaus pisimmästä sakkadista, joka aineistossa esiintyisi. Parametrin asettamiseen ei siis ole automaattista tapaa vaan tutkija joutuu käyttämään jonkinlaista arvausta lähtökohtana. Etäisyysraja-arvon asettamiseen voitaneen käyttää samaa menetelmää kuin I-VT-algoritmissa vaikkakaan Komogortsev tai Salvucci eivät kumpikaan parametrin asettamista avaa tutkimuksissaan.
+
+I-MST ei nopeudeltaan kilpaile muiden tässä työssä esiteltyjen algoritmien kanssa. Pienimmän viritetyn puun laskemisen kustannus kasvaa ekspotentiaalisesti, mitä enemmän pisteitä puuhun kuuluu. Eli toisin sanoen mitä suurempi näytteenottotaajuus datajoukossa on sitä raskaampaa I-MST-algoritmin käyttäminen on. 
+
+Algoritmin implementointi on selvästi monimutkaisempaa kuin I-VT ja I-DT algoritmien, mutta yksinkertaisempaa kuin I-HMM-algoritmin. Mikäli algoritmia suunnittelee käyttävänsä on suositeltavaa käyttää jotakin kirjastoa, joka osaa laskea pienimmän viritetyn puun annetusta graafista. Tälläisia kirjastoja löytyy varmasti lähes jokaiselle ympäristölle, koska kyseessä on niin perustavanlaatuinen graafialgoritmi.
+
+
+
 \subsection{Suorituskyvyn mittaaminen}
 
-
+\section{Fiksaatioiden tunnistaminen liikedatasta}
 
 \label{sec:esimluku}
 
