@@ -22,7 +22,7 @@ Työ on rajattu niin, että siinä ei tulla käsittelemään erilaisia menetelmi
 
 Tutkimuskysymysten ratkaisemiseksi tehtiin kirjallisuuskatsaus tutkimukseen, jota havaitsemisen, psykologian ja konenäön aloilla on tutkimuskysymyksiin liittyen tehty. Tämän lisäksi työ sisältää kokeellisen osuuden, jossa verrataan kirjallisuudesta löydettyjen algoritmeja kaupallisen katseentunnistuslaitteen mukana tulleen ohjelmiston tuottamaan fiksaatiodataan. Vertailemalla kirjallisuudesta löytyviä menetelmiä kaupalliseen toteutukseen selvitetään kuinka lähelle kaupallisen toteutuksen tuloksia kirjallisuudesta löytyvillä menetelmillä on mahdollista päästä sekä kuinka haastavaa menetelmiä on toteuttaa. Näin tutkijan on mahdollista evaluoida, missä tapauksissa oman implementaation toteuttaminen olisi järkevää.
 
-Yllä esitetyt tutkimuskysymykset tukevat työn rakennetta niin, että ne tullaan ratkaisemaan siinä järjestyksessä kuin ne on esitetty. Johdannon jälkeisessä luvussa ``Silmän liikeanalyysin tutkimus''  esitellään ja selitetään terminologiaa, jota tutkimuksen aihepiiriin kuuluu sekä esitetään kuinka tietoa tutkimukseen on haettu. VARMAAN JOTAIN MUUTA KANSSA...
+Yllä esitetyt tutkimuskysymykset tukevat työn rakennetta niin, että ne tullaan ratkaisemaan siinä järjestyksessä kuin ne on esitetty. Johdannon jälkeisessä luvussa ``Silmän liikeanalyysin tutkimus''  esitellään ja selitetään terminologiaa, jota tutkimuksen aihepiiriin kuuluu sekä esitetään kuinka tietoa tutkimukseen on haettu. 
 
 Tämän jälkeen kolmannessa luvussa ``Silmän liikeanalyysin algoritmit''  esitellään kirjallisuudesta löytyneitä algoritmeja ja vertaillaan niitä toisiinsa kirjallisuuden perusteella. Tämän lisäksi luvussa esitellään taksonomia, jonka perusteella algoritmeja voi luokitella. Luvun perusteella lukija saa käsityksen siitä millaisia liikeanalyysin algoritmit tyyppillisesti ovat ja mitkä ovat kunkin esitellyn algoritmin vahvuudet ja heikkoudet.
 
@@ -33,6 +33,26 @@ Lopuksi johtopäätöksissä...
 
 ---------------------------------------------------------------
 \section{Silmän liikeanalyysin tutkimus}
+
+\subsection{Aineiston keruumenetelmä}
+Tässä työssä käytetyn lähdemateriaalin löytämiseen ja hankkimiseen käytettiin Google Scholar-hakukonetta, joka tarjoaa vaivattoman tavan etsiä tieteellisiä julkaisuja monesta eri tieteellisten julkaisujen tietokannasta samanaikaisesti. Dedikoitujen tieteellisten julkaisujen tietokantojen monipuolisemmille hakuehdoille ja sitä kautta käytölle ei tässä työssä nähty tarvetta, koska lähteiden sopivuutta työssä rajoiteta esimerkiksi julkaisuvuoden tai muun syyn perusteella.
+Hakusanoina lähteiden löytämiseksi käytettiin mm. seuraavia:
+
+\begin{itemize}
+	\item fixation identification
+	\item eye fixation algorithm
+	\item eye movement history
+	\item eye fixations
+	\item eye movement classification
+	\item fixation detection
+	\item eye movement analysis
+\end{itemize}
+
+Hakujen tuloksista luettiin abstraktit läpi ja harkintaa käyttäen seulottiin artikkeleita tarkempaa tutustumista varten. Seulonnassa erityistä huomiota saivat artikkelit, jotka esittelivät tai tutkivat algoritmeja fiksaatioden tunnistamiseksi. Työssä käytetty lähdekirjallisuus on kokonaisuudessaan englanninkielistä. Myös suomenkielisiä hakuja aiheesta tehtiin Scholarin kautta, mutta sopivia lähteitä ei löytynyt.
+
+
+\subsection{Silmän liikeanalyysin tutkimuksen historiaa}
+
 
 \section{Silmän liikeanalyysin algoritmit}
 \subsection{Yksinkertainen nopeusraja-arvoon perustuva tunnistusalgoritmi I-VT}
@@ -90,24 +110,40 @@ I-MST ei nopeudeltaan kilpaile muiden tässä työssä esiteltyjen algoritmien k
 
 Algoritmin implementointi on selvästi monimutkaisempaa kuin I-VT ja I-DT algoritmien, mutta yksinkertaisempaa kuin I-HMM-algoritmin. Mikäli algoritmia suunnittelee käyttävänsä on suositeltavaa käyttää jotakin kirjastoa, joka osaa laskea pienimmän viritetyn puun annetusta graafista. Tälläisia kirjastoja löytyy varmasti lähes jokaiselle ympäristölle, koska kyseessä on niin perustavanlaatuinen graafialgoritmi.
 
-\subsection{Suorituskyvyn mittaaminen}
-Jotta erilaisten fiksaationtunnistusalgoritmejen suorituskykyä olisi mahdollista verrata toisiinsa, on otettava käyttöön metriikoita, joilla tätä vertailua voidaan tehdä. Seuraavaksi esittelemme kirjallisuudesta löytyneitä menetelmiä vertailujen tekemiseen.
+\subsection{Metriikoita algoritmien vertailuun}
+Jotta erilaisia fiksaationtunnistusalgoritmeja olisi mahdollista verrata toisiinsa, on otettava käyttöön metriikoita, joilla tätä vertailua voidaan tehdä. Seuraavaksi esittelemme kirjallisuudesta löytyneitä menetelmiä vertailujen tekemiseen.
 
-\citet[s. 4]{komogortsev2010} esittelee julkaisussaan erilaisia metriikoita fiksaationtunnistusalgoritmien vertailemiseen. Yksi näistä metriikoista on kvantitatiivinen fiksaatiopisteytys (engl. Fixation Quantitative Score FQnS). Metriikan käyttämiseen tarvitaan referenssijoukko datapisteitä, joista tiedetään esittävätkö pisteet fiksaatiota vai sakkadeja. Tälläinen datajoukko pitää käytännössä annotoida käsin tai vaihtoehtoisesti voidaan käyttää referenssinä katseentunnituslaitteen annotoimaa dataa niin kuin tässä työssä tullaan tekemään. Metriikan ideana on verrata algoritmin tunnistamien fiksaatioiden määrää referenssijoukossa olevien fiksaatioiden määrään.
+\citet[s. 4]{komogortsev2010} esittelee julkaisussaan erilaisia metriikoita fiksaationtunnistusalgoritmien vertailemiseen. Yksi näistä metriikoista on kvantitatiivinen fiksaatiopisteytys (engl. Fixation Quantitative Score, FQnS). Metriikan käyttämiseen tarvitaan referenssijoukko datapisteitä, joista tiedetään esittävätkö pisteet fiksaatiota vai sakkadeja. Tälläinen datajoukko pitää käytännössä annotoida käsin tai vaihtoehtoisesti voidaan käyttää referenssinä katseentunnituslaitteen annotoimaa dataa niin kuin tässä työssä tullaan tekemään. Metriikan ideana on verrata algoritmin tunnistamien fiksaatioiden määrää referenssijoukossa olevien fiksaatioiden määrään.
 
 \[
-FQnS = 100 * {{tunnistetut fiksaatiot} \over {referenssifiksaatiot}}
+FQnS = 100 * {{tunnistetut\ fiksaatiot} \over {referenssifiksaatiot}}
 \]
  
  Metriikan laskennassa käydään jokainen laskettavan datajoukon piste läpi ja mikäli piste on on arvioitu fiksaatioksi niin verrataan sitä vastaavan ajankohdan pisteeseen referenssijoukossa. Mikäli referenssijoukossa tuona ajankohtana oleva piste on fiksaatio niin kasvatetaan tunnistettujen fiksaatioiden määrää yhdellä. On huomattava, että FQnS:n laskennassa ei rangaista, mikäli referenssijoukon sakkadia luullaan fiksaatioksi. Näin ollen pelkästään tätä mittaria maksimoimalla ei saada hyvin toimivaa algoritmia, koska mittari voidaan maksimoida vain arvaamalla kaikki pisteet fiksaatioiksi.
  
- Toinen Komogortsevin julkaisussa esitetty metriikka on nimeltään kvalitatiivinen fiksaatioiden pisteytys (eng. Fixation Qualitative Score FQlS). Metriikkassa verrataan tunnistettuja fiksaatiopisteitä referenssidataan ja lasketaan keskimääräinen etäisyys, joka tunnistetulla fiksaatiolla ja referenssifiksaatiolla on toisistaan. 
+ Toinen Komogortsevin julkaisussa esitetty metriikka on nimeltään kvalitatiivinen fiksaatioiden pisteytys (engl. Fixation Qualitative Score, FQlS). Metriikkassa verrataan tunnistettuja fiksaatiopisteitä referenssidataan ja lasketaan keskimääräinen etäisyys, joka oikein tunnistetulla fiksaatiolla ja referenssifiksaatiolla on toisistaan. 
 
 \[
-FQlS = {1 \over N} * \sum\limits_{i=1}^N etaisyys referenssifiksaatiosta_i
+FQlS = {1 \over N} * \sum\limits_{i=1}^N etaisyys\ referenssifiksaatiosta_i
 \]
 
-metriikan nimeltä kvalitatiivinen fiksaatioiden pisteytys (eng. Fixation Qualitative Score FQlS). Metriikan käyttämiseen tarvitaan referenssijoukko datapisteitä, joista tiedetään esittävätkö pisteet fiksaatiota vai sakkadeja. Tälläinen datajoukko pitää käytännössä annotoida käsin tai vaihtoehtoisesti voidaan käyttää referenssinä katseentunnituslaitteen annotoimaa dataa niin kuin tässä työssä tullaan tekemään. 
+N kuvaa kaavassa oikein tunnistettujen fiksaatiopisteiden määrää. Mitä lähempänä FQlS on nollaa sen parempi, koska tällöin keskimääräinen virhe tunnistetulla fiksaatiolla ja referenssillä on pienin. FQlS ei myöskään rankaise väärin tunnistetuista fiksaatioista, joten myöskään pelkästään FQlS:ää ei kannata käyttää algoritmien tarkkuuksien vertailussa.
+
+Muita enemmän kvantitatiivisia metriikoita, joilla eri algoritmien tuloksia voi verrata toisiinsa ovat esimerkiksi:
+\begin{itemize}
+  \item keskimääräinen fiksaatioiden määrä (engl. Average Number of Fixations, ANF)
+  \item keskimääräinen fiksaatioiden kesto (engl. Average Fixation Duration, AFD)
+  \item keskimääräinen sakkadien määrä (engl. Average Number of Saccades, ANS)
+	\item keskimääräinen sakkadin voimakkuus (engl. Average Saccade Amplitude, ASA)
+	\item sakkadien huippunopeus (engl. Saccade peak velocity)
+	\item sakkadien huippukiihtyvyys (engl. Saccade peak acceleration)
+	
+\end{itemize} \citep[s. 4]{komogortsev2010} \citep[s. 195]{nystrom2010}
+
+Edellisillä metriikoiden avulla voidaan huomata algoritmeille tyypillisiä piirteitä niin kuin esimerkiksi \citet[s. 195]{nystrom2010} tekevät artikkelissaan. Artikkelissa nopeusraja-arvoon perustuvalla algoritmilla keskimääräinen fiksaation kesto on lyhyempi kuin muilla vertailtavilla algoritmeilla. Tämän he argumentoivat johtuvan siitä, että algoritmissa ei ole minkäälaista häiriösuodatusta, jolloin yksittäinen häiriöpiste fiksaation sisällä riittää jakamaan fiksaation kahtia.
+
+Luvussa ``Fiksaatioiden tunnistaminen liikedatasta'' tullaan erilaisia fiksaationtunnistusalgoritmeja käyttämään silmänliikedatan luokitteluun ja osaa edellä olevista metriikoista myös algoritmien vertailuun. Koska algoritmien luokittelutuloksia tullaan vertaamaan kaupallisen katseentunnistuslaitteen ohjelmiston tuottamiin tuloksiin on oltava myös metriikka, jolla laskea algoritmin tarkkuutta. FQnS ei sellaisenaan sovellu tarkoitukseen, koska haluamme myös, että väärät luokittelut vaikuttavat metriikan arvoon. Algoritmin  tarkkuutta verrattuna referenssitoteutukseen tullaankin mittaamaan yksinkertaisesti oikeaan osuneiden luokitteluiden suhteella kaikkiin luokiteltavien pisteiden määrään.
+
 
 
 
