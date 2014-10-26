@@ -90,9 +90,26 @@ I-MST ei nopeudeltaan kilpaile muiden tässä työssä esiteltyjen algoritmien k
 
 Algoritmin implementointi on selvästi monimutkaisempaa kuin I-VT ja I-DT algoritmien, mutta yksinkertaisempaa kuin I-HMM-algoritmin. Mikäli algoritmia suunnittelee käyttävänsä on suositeltavaa käyttää jotakin kirjastoa, joka osaa laskea pienimmän viritetyn puun annetusta graafista. Tälläisia kirjastoja löytyy varmasti lähes jokaiselle ympäristölle, koska kyseessä on niin perustavanlaatuinen graafialgoritmi.
 
-
-
 \subsection{Suorituskyvyn mittaaminen}
+Jotta erilaisten fiksaationtunnistusalgoritmejen suorituskykyä olisi mahdollista verrata toisiinsa, on otettava käyttöön metriikoita, joilla tätä vertailua voidaan tehdä. Seuraavaksi esittelemme kirjallisuudesta löytyneitä menetelmiä vertailujen tekemiseen.
+
+\citet[s. 4]{komogortsev2010} esittelee julkaisussaan erilaisia metriikoita fiksaationtunnistusalgoritmien vertailemiseen. Yksi näistä metriikoista on kvantitatiivinen fiksaatiopisteytys (engl. Fixation Quantitative Score FQnS). Metriikan käyttämiseen tarvitaan referenssijoukko datapisteitä, joista tiedetään esittävätkö pisteet fiksaatiota vai sakkadeja. Tälläinen datajoukko pitää käytännössä annotoida käsin tai vaihtoehtoisesti voidaan käyttää referenssinä katseentunnituslaitteen annotoimaa dataa niin kuin tässä työssä tullaan tekemään. Metriikan ideana on verrata algoritmin tunnistamien fiksaatioiden määrää referenssijoukossa olevien fiksaatioiden määrään.
+
+\[
+FQnS = 100 * {{tunnistetut fiksaatiot} \over {referenssifiksaatiot}}
+\]
+ 
+ Metriikan laskennassa käydään jokainen laskettavan datajoukon piste läpi ja mikäli piste on on arvioitu fiksaatioksi niin verrataan sitä vastaavan ajankohdan pisteeseen referenssijoukossa. Mikäli referenssijoukossa tuona ajankohtana oleva piste on fiksaatio niin kasvatetaan tunnistettujen fiksaatioiden määrää yhdellä. On huomattava, että FQnS:n laskennassa ei rangaista, mikäli referenssijoukon sakkadia luullaan fiksaatioksi. Näin ollen pelkästään tätä mittaria maksimoimalla ei saada hyvin toimivaa algoritmia, koska mittari voidaan maksimoida vain arvaamalla kaikki pisteet fiksaatioiksi.
+ 
+ Toinen Komogortsevin julkaisussa esitetty metriikka on nimeltään kvalitatiivinen fiksaatioiden pisteytys (eng. Fixation Qualitative Score FQlS). Metriikkassa verrataan tunnistettuja fiksaatiopisteitä referenssidataan ja lasketaan keskimääräinen etäisyys, joka tunnistetulla fiksaatiolla ja referenssifiksaatiolla on toisistaan. 
+
+\[
+FQlS = {1 \over N} * \sum\limits_{i=1}^N etaisyys referenssifiksaatiosta_i
+\]
+
+metriikan nimeltä kvalitatiivinen fiksaatioiden pisteytys (eng. Fixation Qualitative Score FQlS). Metriikan käyttämiseen tarvitaan referenssijoukko datapisteitä, joista tiedetään esittävätkö pisteet fiksaatiota vai sakkadeja. Tälläinen datajoukko pitää käytännössä annotoida käsin tai vaihtoehtoisesti voidaan käyttää referenssinä katseentunnituslaitteen annotoimaa dataa niin kuin tässä työssä tullaan tekemään. 
+
+
 
 \section{Fiksaatioiden tunnistaminen liikedatasta}
 
