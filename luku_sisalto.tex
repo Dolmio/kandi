@@ -51,7 +51,33 @@ Hakusanoina lähteiden löytämiseksi käytettiin mm. seuraavia:
 Hakujen tuloksista luettiin abstraktit läpi ja harkintaa käyttäen seulottiin artikkeleita tarkempaa tutustumista varten. Seulonnassa erityistä huomiota saivat artikkelit, jotka esittelivät tai tutkivat algoritmeja fiksaatioden tunnistamiseksi. Työssä käytetty lähdekirjallisuus on kokonaisuudessaan englanninkielistä. Myös suomenkielisiä hakuja aiheesta tehtiin Scholarin kautta, mutta sopivia lähteitä ei löytynyt.
 
 
-\subsection{Silmän liikeanalyysin tutkimuksen historiaa}
+\subsection{Silmän liikeanalyysin tutkimuksen taustaa}
+
+Silmän liikkeiden tutkiminen on kiinnostanut tutkijoita pitkään. Jo 1800-luvulla Hering ja Lamare huomasivat, että lukemisen aikana silmän liike ei ole tasaista ja jatkuvaa vasemmalta oikealle etenevää liikettä vaan sisältää nopeaa mikroliikettä sinne tänne. Dodge ehdotti 1916, että sitä nopeaa silmänliikettä, joka tapahtuu kun katse siirtyy paikasta toiseen ruvettaisiin kutsumaan sakkadiksi ranskaksi nykäystä tarkoittavan sanan mukaan.\citep[s.793]{wade2003dodge} Silmän liikkeitä on sekä tahdollisia että tahdottomia ja seuraavaksi esitelläänkin erilaisia nimityksiä tavoille, joilla silmän on havaittu liikkuvan jaoteltuna tahdollisiin liikkeisiin ja tahdottomiin liikkeisiin:
+
+\subsubsection{Tahdolliset silmänliikkeet}  
+\paragraph{Sakkadit}
+Sakkadilla, joka tulee ranskankielisestä nykäystä tarkoittavasta sanasta, tarkoitetaan nopeaa silmänliikettä kun katse siirtyy paikasta toiseen. Sakkadin aikana herkkyys visuaaliselle ärsykkeelle laskee, eli jos koehenkilölle näyttää sakkadin aikana jotakin lyhytaikaista ärsykettä ei tämä rekisteröidy välttämättä ollenkaan. Tälläistä näkökyvyn heikentymistä sakkadin aikana kutsutaan kirjallisuudessa sakkadiseksi supressioksi (engl. saccadic supression).\citep[s.899]{matin1974saccadic} Sakkadin nopeus on monotoninen funktio sen suhteen kuinka paljon silmän täytyy liikkua. Nopeus nousee nopeasti maksimiinsa hieman ennen sakkadin matkan puoliväliä, jonka jälkeen päämärään kohti jatketaan hieman pienemällä vauhdilla. Maksiminopeus sakkadilla voi olla jopa 500\degree /s. Tyypillisesti sakkadit ovat kuitenkin hyvin lyhyitä esim. lukiessa sakkadien pituudet ovat n. 2\degree eli kestollisesti n. 30ms kun taas maiseman observoinnissa sakkadien pituudet ovat n. 5\degree eli 50ms. \citep[s.373]{rayner1998eye}
+
+\paragraph{Sulava seuraus}
+
+Sulava seuraus (engl. Smooth pursuit) on sakkadia hitaampi silmän liike, jonka tarkoituksena on pitää seurattava kohde tarkan näön alueella. Koska sulavan seurauksen liikkeen nopeus on paljon pienempi kuin sakkadeilla ei samanlaista näkökyvyn heikentymistä tapahdu kuin sakkadisessa suppressiossa.\citep[s.373]{rayner1998eye} Tässä työssä esiteltäviä algoritmeja ei ainakaan käytetyssä kirjallisuudessa ole suoraan sovellettu tunnistamaan, koska silmän liikkeessä on kyseessä sulava seuraus. 
+
+\subsubsection{Tahdottomat silmänliikkeet} 
+\paragraph{Mikrosakkadit}
+Mikrosakkadit ovat pientä tahdosta riippumatonta silmänliikettä, joita esiintyy fiksaation aikana. Mikrosakkadeja esiintyy yleensä yksi tai kaksi sekunnissa ja niiden voimakkuus on maksimissaan luokkaa 1\degree.\citep[s.431]{engbert2004} Mikrosakkadien tarkoituksena on vastustaa retinan sopeutumista vallitsevaan ympäristöön ja näin ehkäistä värinäön heikentyminen.\citep[s.374]{arend1973} Toinen mikrosakkadien tehtävä on pyrkiä vakauttamaan silmän ajelehtimisen (engl. Drift) aiheuttamaa häiriötä siihen minne silmä katsoo.\citep[s.431]{engbert2004}
+
+\paragraph{Vestibulo-okulaarinen refleksi}
+Vestibulo-okulaarisella refleksillä tarkoitetaan sitä automaattista silmien liikettä, joka syntyy kun katsoo jotakin kohdetta ja kääntää päätään samalla, jolloin silmät liikkuvat vastakkaiseen suuntaan pään kanssa, jotta tarkennus kohteessa säilyisi. Tässä työssä esiteltävät algoritmit eivät yhdistä tietoa pään liikkeistä silmänliikedataan vaan olettavat pään pysyvän paikallaan.
+
+\subsubsection{Fiksaatio}
+
+\subsection{Kuinka silmänliikedataa kerätään}
+
+\subsection{Sovellutuksia silmänliikedatan käytölle}
+
+1900-luvun alussa oli myös jo saatu selville, että silmän liikkuessa sakkadin omaisesti silmän kyky kerätä informaatiota heikkenee.\citep[s.899]{matin1974saccadic} Eli jos koehenkilölle näyttää sakkadin aikana jotakin lyhytaikaista ärsykettä ei tämä rekisteröidy välttämättä ollenkaan. Tälläistä näkökyvyn heikentymistä sakkadin aikana kutsutaan kirjallisuudessa sakkadiseksi supressioksi (engl. saccadic supression). LISÄÄ TULOSSA
+
 
 
 \section{Silmän liikeanalyysin algoritmit}
