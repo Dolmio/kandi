@@ -71,6 +71,11 @@ Mikrosakkadit ovat pientä tahdosta riippumatonta silmänliikettä, joita esiint
 Vestibulo-okulaarisella refleksillä tarkoitetaan sitä automaattista silmien liikettä, joka syntyy kun katsoo jotakin kohdetta ja kääntää päätään samalla, jolloin silmät liikkuvat vastakkaiseen suuntaan pään kanssa, jotta tarkennus kohteessa säilyisi.\citep[s.210]{laurutis1986vestibulo} Tässä työssä esiteltävät algoritmit eivät yhdistä tietoa pään liikkeistä silmänliikedataan vaan olettavat pään pysyvän paikallaan.
 
 \subsubsection{Fiksaatio}
+Fiksaatioksi katseentunnistuksen kontekstissa kutsutaan sitä aikaa kun ihmisen katse on kiinnittynyt johonkin kohteeseen.\citep[s. 71]{salvucci2000} Fiksaatioiden aikana taphtuu myös kognitiivinen prosessointi, joka mahdollistaa ``näkemisen''.\citep[s. 881]{Blignaut2009} Fiksaation minimipituudeksi on kirjallisuudessa esitetty arvoja 100-200ms välillä.\citep[s. 85]{manor2003}\citep[s. 881]{Blignaut2009}. 100ms pienemmillä arvoilla kognitiivista prosessointia ei enää ehdi kunnolla tapahtua sekä fiksaation sisällä olevat mikrosakkadit voivat aiheuttaa häiriötä tunnistusalgoritmeihin. Hiljaa tekstiä lukiessa fiksaatiot kestävät keskimäärin n. 225 ms kun taas käden ja silmän yhteistyötä vaativissa tehtävissä kuten kynällä kirjoittaessa fiksaatiot ovat keskimäärin 400ms.\citep[s.373]{rayner1998eye}
+
+Silmänliikedataa analysoitaessa fiksaatiot ovat usein se, mitä datasta yritetään löytää, koska yleensä analysoinnin tavoitteena on jollakin tapaa jalostaa tietoa siitä, mihin ihminen on kiinnittänyt huomiota, koska ja kuinka kauan. 
+
+Edellä esitetyn fiksaation määritelmän mukaan myös sulavaa seurausta voitaisiin nimittää fiksationaaliseksi silmänliikkeeksi, koska siinä katse pysyy kiinnittyneenä kohteeseen, vaikka liikettä tapahtuisi paljonkin. Työssä esiteltävät dispersiopohjaiset algoritmit eivät tälläistä liikettä tunnistaisi fiksaatioksi kun taas nopeuspohjaiset saattaisivat tehdä tunnistuksen oikein. Tässä työssä käytetyssä kirjallisuudessa asiaa ei kuitenkaan tutkittu.
 
 \subsection{Kuinka silmänliikedataa kerätään}
 
@@ -139,34 +144,9 @@ I-MST ei nopeudeltaan kilpaile muiden tässä työssä esiteltyjen algoritmien k
 Algoritmin implementointi on selvästi monimutkaisempaa kuin I-VT ja I-DT algoritmien, mutta yksinkertaisempaa kuin I-HMM-algoritmin. Mikäli algoritmia suunnittelee käyttävänsä on suositeltavaa käyttää jotakin kirjastoa, joka osaa laskea pienimmän viritetyn puun annetusta graafista. Tälläisia kirjastoja löytyy varmasti lähes jokaiselle ympäristölle, koska kyseessä on niin perustavanlaatuinen graafialgoritmi.
 
 
-		\begin{table}
-    \begin{tabular}{| p{4cm} | p{3cm} | p{3cm}| p{3.5cm} |}
-    \hline
-    Algoritmi & Parametrit & Implementoinnin haastavuus & Harjoitustarve \\ \hline
-    I-VT nopeusraja-arvo algoritmi & 1 & Erittäin helppo & Ei\\ \hline
-    I-DT dispersioraja-arvo algorimiti & 2 & Helppo & Ei \\ \hline
-    I-HMM Markovin piilomallia käyttävä algoritmi & 8 / 0 & Haastava & Kyllä \\ \hline
-		I-ST Pienimmän viritetyn puun algoritmi & 2 & Kohtuullinen & Ei \\
-    \hline
-    \end{tabular}
-		
-		\vspace*{0.2 cm}
-		
-    \begin{tabular}{| p{4cm} | p{3cm} | p{3cm} |  p{3.5cm} |}
-    \hline
-    Algoritmi & Nopeus & Häiriönsietokyky & Tunnistus perustuu  \\ \hline
-    I-VT nopeusraja-arvo algoritmi  & Erittäin hyvä & Huono  & Nopeus \\ \hline
-    I-DT dispersioraja-arvo algorimiti  & Hyvä & Hyvä & Dispersio\\ \hline
-    I-HMM Markovin piilomallia käyttävä algoritmi & Hyvä & Hyvä & Nopeus \\ \hline
-		I-ST Pienimmän viritetyn puun algoritmi & Kohtuullinen & Hyvä & Dispersio \\
-    \hline
-    \end{tabular}
-		
-		\caption{Tunnistusalgoritmien ominaisuuksia}
-		\end{table}
 
 \subsection{Metriikoita algoritmien vertailuun}
-Jotta erilaisia fiksaationtunnistusalgoritmeja olisi mahdollista verrata toisiinsa, on otettava käyttöön metriikoita, joilla tätä vertailua voidaan tehdä. Seuraavaksi esittelemme kirjallisuudesta löytyneitä menetelmiä vertailujen tekemiseen.
+Jotta erilaisia fiksaationtunnistusalgoritmeja olisi mahdollista verrata toisiinsa, on otettava käyttöön metriikoita, joilla tätä vertailua voidaan tehdä. Seuraavaksi esittelemme kirjallisuudesta löytyneitä menetelmiä vertailujen tekemiseen, sekä koostamme edellä esiteltyjen neljän algoritmin datasta riippumattomia ominaisuudet taulukkoon, jonka avulla algoritmien vertailu toisiinsa on helpompaa.
 
 \citet[s. 4]{komogortsev2010} esittelee julkaisussaan erilaisia metriikoita fiksaationtunnistusalgoritmien vertailemiseen. Yksi näistä metriikoista on kvantitatiivinen fiksaatiopisteytys (engl. Fixation Quantitative Score, FQnS). Metriikan käyttämiseen tarvitaan referenssijoukko datapisteitä, joista tiedetään esittävätkö pisteet fiksaatiota vai sakkadeja. Tälläinen datajoukko pitää käytännössä annotoida käsin tai vaihtoehtoisesti voidaan käyttää referenssinä katseentunnituslaitteen annotoimaa dataa niin kuin tässä työssä tullaan tekemään. Metriikan ideana on verrata algoritmin tunnistamien fiksaatioiden määrää referenssijoukossa olevien fiksaatioiden määrään.
 
@@ -199,8 +179,35 @@ Edellisillä metriikoiden avulla voidaan huomata algoritmeille tyypillisiä piir
 
 Luvussa ``Fiksaatioiden tunnistaminen liikedatasta'' tullaan erilaisia fiksaationtunnistusalgoritmeja käyttämään silmänliikedatan luokitteluun ja osaa edellä olevista metriikoista myös algoritmien vertailuun. Koska algoritmien luokittelutuloksia tullaan vertaamaan kaupallisen katseentunnistuslaitteen ohjelmiston tuottamiin tuloksiin on oltava myös metriikka, jolla laskea algoritmin tarkkuutta. FQnS ei sellaisenaan sovellu tarkoitukseen, koska haluamme myös, että väärät luokittelut vaikuttavat metriikan arvoon. Algoritmin  tarkkuutta verrattuna referenssitoteutukseen tullaankin mittaamaan yksinkertaisesti oikeaan osuneiden luokitteluiden suhteella kaikkiin luokiteltavien pisteiden määrään.
 
+Taulukon \ref{table:alg_ominaisuudet} avulla voidaan tarkastella aiemmin tässä luvussa esiteltyjen algoritmien ominaisuuksia rinnan, jolloin voidaan saada nopea yleiskuvaus algoritmeista. Taulukosta voidaan nähdä, että esitellyt algoritmit tarvitsevat parametreja toimiakseen nollasta kahdeksaan. I-HMM tosin tarvitsee kahdeksan parametria vain, jos harjoitteludataa ei ole saatavilla, muuten se ei tarvitse yhtäkään. I-VT on algoritmeista yksinkertaisin toteuttaa kun taas I-HMM on monimutkaisin varsinkin re-estimoinnin kanssa. 
 
-
+		\begin{table}
+    \begin{tabular}{| p{4cm} | p{3cm} | p{3cm}| p{3.5cm} |}
+    \hline
+    Algoritmi & Parametrit & Implementoinnin haastavuus & Harjoitustarve \\ \hline
+    I-VT nopeusraja-arvo algoritmi & 1 & Erittäin helppo & Ei\\ \hline
+    I-DT dispersioraja-arvo algorimiti & 2 & Helppo & Ei \\ \hline
+    I-HMM Markovin piilomallia käyttävä algoritmi & 8 / 0 & Haastava & Kyllä \\ \hline
+		I-ST Pienimmän viritetyn puun algoritmi & 2 & Kohtuullinen & Ei \\
+    \hline
+    \end{tabular}
+		
+		\vspace*{0.2 cm}
+		
+    \begin{tabular}{| p{4cm} | p{3cm} | p{3cm} |  p{3.5cm} |}
+    \hline
+    Algoritmi & Nopeus & Häiriönsietokyky & Tunnistus perustuu  \\ \hline
+    I-VT nopeusraja-arvo algoritmi  & Erittäin hyvä & Huono  & Nopeus \\ \hline
+    I-DT dispersioraja-arvo algorimiti  & Hyvä & Hyvä & Dispersio\\ \hline
+    I-HMM Markovin piilomallia käyttävä algoritmi & Hyvä & Hyvä & Nopeus \\ \hline
+		I-ST Pienimmän viritetyn puun algoritmi & Kohtuullinen & Hyvä & Dispersio \\
+    \hline
+    \end{tabular}
+		
+		\caption{Tunnistusalgoritmien ominaisuuksia}
+		\label{table:alg_ominaisuudet}
+		\end{table}
+\newpage
 
 \section{Fiksaatioiden tunnistaminen liikedatasta}
 
