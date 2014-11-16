@@ -211,6 +211,43 @@ Taulukon \ref{table:alg_ominaisuudet} avulla voidaan tarkastella aiemmin tässä
 
 \section{Fiksaatioiden tunnistaminen liikedatasta}
 
+Tässä luvussa tulemme käyttämään I-VT nopeusraja-arvo-algoritmia sekä I-DT dispersioraja-arvo-algoritmia tunnistamaan fiksaatioita oikeasta silmänliikedatasta. Vertailemme algoritmien tuottamia tuloksia toisiinsa sekä kaupallisen katseentunnistajan tuottamiin tuloksiin. Tämän lisäksi tutkimme kuinka tunnistusalgoritmien parametrien muuttaminen vaikuttaa saatuihin tuloksiin.
+
+\subsection{Koejärjestely}
+Algoritmien vertailemiseen käytetään Aalto-Yliopistossa Mediatekniikan laitoksella 2013 tehdyn tutkimuksen katseentunnistusosion raakadatoja.(TARKKA VIITE?) Tutkimuksessa koehenkilöille näytettiin kuvia yhdeksästä uutisesta kymmenen kuvaa per uutinen. Jokaista kuvaa näytettiin viisi sekuntia ja jokaisen kuvan katsomisesta kerättiin silmänliikedataa. Datan keräämiseen käytettiin EYE-TRACKER VISION(OIKEA NIMI?)-katseentunnistuslaitetta, joka oli asetettuna koehenkilön päähän. MITEN LAITE TOIMII?. Näytteenottotaajuus käytetyllä katseentunnistuslaitteella on 30Hz eli uusi datapiste saadaan n. 33ms välein. Markkinoilta löytyy myös katseentunnistuslaitteita kuten SMI HiSpeed, jolla näytteenottotaajuus on niinkin korkea kuin 1250Hz.\citep[s.197]{nystrom2010} Kun tarkoituksena on selvittää mihin ihmisen huomio kiinnittyy kuvia katsellessa, eikä esim. mikrosakkadien mekaniikkaa, voidaan 30Hz näytteenottotaajuutta pitää riittävänä tarkkuutena.
+
+Tätä työtä varten uutiskuvista valittiin yksi kuva, jonka katsomisesta kerättyjä datoja käytetään tunnistusalgoritmien vertailuun. Kuvaksi valittiin kuvajoukosta sellainen kuva, josta löytyy selkeitä kiinnekohtia, joihin katseella olisi mahdollista hakeutua. 
+
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{guitar.jpg}
+  \captionof{figure}{Uutiskuva 54. Helsinki-päivästä}
+  \label{fig:sample-pic}
+\end{minipage}%
+
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{sample-fixations.jpg}
+  \captionof{figure}{Katseentunnistuslaitteen löytämät fiksaatiot}
+  \label{fig:sample-fixations}
+\end{minipage}
+\end{figure}
+ 
+
+\begin{figure}[h]
+		\begin{subfigure}{.5\textwidth}
+    \includegraphics[width=1.0\textwidth]{velocity-threshold-chart.png}
+		\end{subfigure}%
+		\begin{subfigure}{.5\textwidth}
+    \includegraphics[width=1.0\textwidth]{velocity-threshold-avg-chart.png}
+		\end{subfigure}%
+		
+		\caption{Fiksaatioiden määrä ja keskimääräinen kesto nopeusraja-arvon kasvaessa}
+		\label{fig:velocity-threshold-avg-chart}
+\end{figure}
+
 \label{sec:esimluku}
 
  --------------------------------------------------------------------
