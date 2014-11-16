@@ -14,7 +14,6 @@ Tämän työn tavoitteena onkin auttaa katseentunnistuksesta kerättyä dataa hy
 	\item Millaisia menetelmiä silmän fiksaatioden tunnistamiseen on olemassa?
 	\item Millä tavalla näitä menetelmiä voidaan luokitella?
 	\item Mitä asioita tulee ottaa huomioon käytettävän menetelmän valinnassa?
-	\item Kuinka fiksaatiodataa voidaan yhdistää videokuvaan ihmisen näkökentästä?
 	\item Kuinka esitellyt fiksaationtunnistusmenetelmät vertautuvat kaupalliseen toteutukseen?
 \end{itemize}
 
@@ -214,9 +213,15 @@ Taulukon \ref{table:alg_ominaisuudet} avulla voidaan tarkastella aiemmin tässä
 Tässä luvussa tulemme käyttämään I-VT nopeusraja-arvo-algoritmia sekä I-DT dispersioraja-arvo-algoritmia tunnistamaan fiksaatioita oikeasta silmänliikedatasta. Vertailemme algoritmien tuottamia tuloksia toisiinsa sekä kaupallisen katseentunnistajan tuottamiin tuloksiin. Tämän lisäksi tutkimme kuinka tunnistusalgoritmien parametrien muuttaminen vaikuttaa saatuihin tuloksiin.
 
 \subsection{Koejärjestely}
-Algoritmien vertailemiseen käytetään Aalto-Yliopistossa Mediatekniikan laitoksella 2013 tehdyn tutkimuksen katseentunnistusosion raakadatoja.(TARKKA VIITE?) Tutkimuksessa koehenkilöille näytettiin kuvia yhdeksästä uutisesta kymmenen kuvaa per uutinen. Jokaista kuvaa näytettiin viisi sekuntia ja jokaisen kuvan katsomisesta kerättiin silmänliikedataa. Datan keräämiseen käytettiin EYE-TRACKER VISION(OIKEA NIMI?)-katseentunnistuslaitetta, joka oli asetettuna koehenkilön päähän. MITEN LAITE TOIMII?. Näytteenottotaajuus käytetyllä katseentunnistuslaitteella on 30Hz eli uusi datapiste saadaan n. 33ms välein. Markkinoilta löytyy myös katseentunnistuslaitteita kuten SMI HiSpeed, jolla näytteenottotaajuus on niinkin korkea kuin 1250Hz.\citep[s.197]{nystrom2010} Kun tarkoituksena on selvittää mihin ihmisen huomio kiinnittyy kuvia katsellessa, eikä esim. mikrosakkadien mekaniikkaa, voidaan 30Hz näytteenottotaajuutta pitää riittävänä tarkkuutena.
+Algoritmien vertailemiseen käytetään Aalto-Yliopistossa Mediatekniikan laitoksella 2013 tehdyn tutkimuksen katseentunnistusosion raakadatoja.(TARKKA VIITE?) Tutkimuksessa koehenkilöille näytettiin kuvia yhdeksästä uutisesta kymmenen kuvaa per uutinen. Jokaista kuvaa näytettiin viisi sekuntia ja jokaisen kuvan katsomisesta kerättiin silmänliikedataa. Datan keräämiseen käytettiin EYE-TRACKER VISION(OIKEA NIMI?)-katseentunnistuslaitetta, joka oli asetettuna koehenkilön päähän. MITEN LAITE TOIMII?. Näytteenottotaajuus käytetyllä katseentunnistuslaitteella on 30Hz eli uusi datapiste saadaan n. 33ms välein. Markkinoilta löytyy myös katseentunnistuslaitteita kuten SMI HiSpeed, joilla näytteenottotaajuus on niinkin korkea kuin 1250Hz.\citep[s.197]{nystrom2010} Kun tarkoituksena on selvittää mihin ihmisen huomio kiinnittyy kuvia katsellessa, eikä esim. mikrosakkadien mekaniikkaa, voidaan 30Hz näytteenottotaajuutta pitää riittävänä tarkkuutena.
 
-Tätä työtä varten uutiskuvista valittiin yksi kuva (Kuva \ref{fig:news-pic}), jonka katsomisesta kerättyjä datoja käytetään tunnistusalgoritmien vertailuun. Kuvaksi valittiin kuvajoukosta sellainen kuva, josta löytyy selkeitä kiinnekohtia, joihin katseella olisi mahdollista hakeutua. 
+Tätä työtä varten uutiskuvista valittiin yksi kuva (Kuva \ref{fig:news-pic}), jonka katsomisesta kerättyjä datoja käytetään tunnistusalgoritmien vertailuun. Kuvaksi valittiin kuvajoukosta sellainen kuva, josta löytyy selkeitä kiinnekohtia, joihin katseella olisi mahdollista hakeutua. Koehenkilö, jonka silmänliikedataa käytettäisiin valittiin joukosta sattumanvaraisesti kuitenkin niin, että raakadataa silmäilemällä katsottiin, että joukossa ei ole huomattavaa määrää häiriödataa. Häiriödatalla tässä tapauksessa tarkoitetaan esim. silmien kiinniolosta johtuvaa häiriötä tai muita virheitä, joita raakadatasta oli mahdollista nähdä.
+
+I-VT ja I-DT algoritmien toteuttamisessa, raakadatan lukemiseen, että syöttämiseen algoritmeille käytettiin Clojure-ohjelmointikieltä. I-VT ja I-DT algoritmien toteutuskoodi on nähtävillä liitteissä \emph{\nameref{sec:IVT-implementation}} ja \emph{\nameref{sec:IDT-implementation}}. Kokonaisuudessaan vertailujen tekemiseen käytetty ohjelmakoodi on nähtävissä osoitteessa: \href{https://github.com/Dolmio/eyefixations}{https://github.com/Dolmio/eyefixations}. 
+
+\subsection{Tulokset}
+
+EYE-TRACKER VISION(OIKEA NIMI?) tunnistamat fiksaatiot ovat nähtävissä kuvasta \ref{fig:sample-fixations}. Fiksaatioita löytyi viiden sekunnin aikana 16 kappaletta. Keskimääräinen fiksaation kesto oli 250ms, joka tarkoittaa sitä että neljä sekuntia viidestä määriteltiin olevan fiksaatiossa. Kun katsotaan kuvaa \ref{fig:sample-fixations} voidaan nähdä kuinka löydetyt fiksaatiot kiertävät kuvasta löytyviä kiinnostavia kohteita kuten kasvoja, rummun, tekstejä ja ihmisiä.Kun verrataan kuvaa \ref{fig:sample-fixations} kuvaan \ref{fig:raw-data}, johon on piirretty jokainen silmänliiketunnistimen keräämä datapiste voidaan nähdä, että silmänliikedatasta on onnistuttu nostamaan esille oleellinen osa vähintäänkin kohtuullisesti.    
 
 \begin{figure}[H]
 \centering
@@ -230,11 +235,32 @@ Tätä työtä varten uutiskuvista valittiin yksi kuva (Kuva \ref{fig:news-pic})
 \begin{minipage}{.45\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{sample-fixations.jpg}
-  \captionof{figure}{Katseeentunnistuslaitteen löytämät fiksaatiot}
-  \label{fig:test2}
+  \captionof{figure}{Raakadata koehenkilöltä MUUTA KUVA}
+  \label{fig:raw-data}
 \end{minipage}
 \end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{.6\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{sample-fixations.jpg}
+  \captionof{figure}{Katseeentunnistuslaitteen löytämät fiksaatiot yhdeltä koehenkilöltä}
+  \label{fig:sample-fixations}
+\end{minipage}
+\hspace{.5cm}
+
+\end{figure}
  
+\subsection{I-VT nopeusraja-arvoalgoritmi}
+Syötteenä nopeusraja-arvoalgoritmille käytettiin kuvassa \ref{fig:raw-data} näkyvää raakadataa. Algoritmi ajettiin nopeusraja-arvon arvoilla 1-300, jotta pystyttäisiin näkemään kuinka parametrin arvon muuttaminen vaikuttaa löytyvien fiksaatioiden määrään ja kestoon. Kuvaajasta kuvassa \ref{fig:velocity-threshold-avg-chart} voidaan nähdä kuinka tunnistettujen fiksaatioiden määrä lähestyy yhtä nopeusraja-arvon kasvaessa. Samaan aikaan nopeusraja-arvon kasvaessa myös löydettyjen fiksaatioiden keskimääräinen kesto nousee. Mikäli nopeusraja-arvo johdetaan kirjallisuudesta löytyneestä silmän ja katsottavan kohteen kulmanopeuden raja-arvosta 20 astetta / sekunti \citep[s. 73]{salvucci2000}, niin nopeusraja-arvoksi pikseleitä / datapiste saadaan 34. Arvo on laskettu kaavalla: 
+
+\begin{equation}
+{{{2 * d * \tan (r / 2)} * w \over q} \over f} \qquad
+\qquad\parbox{6.0cm}{\footnotesize$\begin{aligned} d &= \text{etäisyys katsottavasta kohteesta = 80cm}\\[-1.0ex] r &= \text{kulma = 20\degree}\\w &= \text{kuvan leveys pikseleinä = 1080} \\ q &= \text{kuvan leveys todellisuudessa = 29cm}\\ f &= \text{näytteenottotaajuus = 30} \end{aligned}$}	
+\end{equation}
+
+Nopeusraja-arvolla 34 nopeusraja-arvoalgoritmi löytää datasta 8 fiksaatiota fiksaation keskipituuden ollessa 580ms. Löydetyt fiksaatiot löytyvät kuvasta \ref {fig:vel-fixations-literature-threshold}, jonka vieressä on piirrettynä fiksaatiot myös raja-arvoilla 10, 20, ja 60. Raja-arvolla 34 voidaan nähdä, että fiksaatioita löytyi huomattavasti vähemmän kuin kaupallisella toteutuksella. JATKA TÄSTÄ KUN KUVAT KUNNOSSA JA NÄHDÄÄN OIKEASTI EROT
 
 \begin{figure}[H]
 		\begin{subfigure}{.5\textwidth}
@@ -247,6 +273,42 @@ Tätä työtä varten uutiskuvista valittiin yksi kuva (Kuva \ref{fig:news-pic})
 		\caption{Fiksaatioiden määrä ja keskimääräinen kesto nopeusraja-arvon kasvaessa}
 		\label{fig:velocity-threshold-avg-chart}
 \end{figure}
+
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{.45\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{guitar.jpg}
+  \captionof{figure}{Fiksaatiot raja-arvolla 10 VAIHDA KUVA}
+\end{minipage}%
+\hspace{.5cm}
+\begin{minipage}{.45\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{sample-fixations.jpg}
+  \captionof{figure}{Fiksaatiot raja-arvolla 20 VAIHDA KUVA}
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{.45\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{guitar.jpg}
+  \captionof{figure}{Fiksaatiot raja-arvolla 34 VAIHDA KUVA}
+	  \label{fig:vel-fixations-literature-threshold}
+\end{minipage}%
+\hspace{.5cm}
+\begin{minipage}{.45\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{sample-fixations.jpg}
+  \captionof{figure}{Fiksaatiot raja-arvolla 60 VAIHDA KUVA}
+\end{minipage}
+\end{figure}
+
+ 
+\subsection{I-DT dispersioraja-arvoalgoritmi}
+ 
 
 \label{sec:esimluku}
 
