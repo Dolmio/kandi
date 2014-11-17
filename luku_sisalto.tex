@@ -1,7 +1,7 @@
 \section{Johdanto}
 
 Tämä kandidaatintyö käsittelee menetelmiä, joilla silmän fiksaatioita
-voidaan tunnistaa katseentunnistuslaitteiden keräämästä datasta. Katseentunnistuksen tarkoituksena on selvittää mihin näköpiirissään ihminen kiinnittää huomiota. On yleisesti hyväksyttyä \citep[s.33]{munn2008}, että ne alueet, joihin ihmisen katse on suuntautunut ovat alueita, jotka ovat jollakin tapaa tärkeitä tai kiinnostavia katsojalleen. 
+voidaan tunnistaa katseentunnistuslaitteiden keräämästä datasta. Katseentunnistuksen tarkoituksena on selvittää mihin näköpiirissään ihminen kiinnittää huomiota. On yleisesti hyväksyttyä \citep[s.33]{munn2008}, että ne alueet, joihin ihmisen katse on suuntautunut ovat alueita, jotka ovat jollakin tapaa tärkeitä tai kiinnostavia eli toisin sanoen salientteja katsojalleen. 
 
 Analysoitaessa katseentunnistuslaitteden keräämää dataa jaetaan kerätyt datapisteet usein joko fiksaatioiksi tai sakkadeiksi. \citep[s. 71]{salvucci2000} Fiksaatio voidaan määritellä tarkoittamaan aluetta, johon katse pysähtyy \citep[s. 71]{salvucci2000} ja jonka aikana tapahtuu kognitiivista prosessointia, joka mahdollistaa ``näkemisen''  ihmiselle. \citep[s. 881]{Blignaut2009}
 
@@ -23,7 +23,7 @@ Tutkimuskysymysten ratkaisemiseksi tehtiin kirjallisuuskatsaus tutkimukseen, jot
 
 Yllä esitetyt tutkimuskysymykset tukevat työn rakennetta niin, että ne tullaan ratkaisemaan siinä järjestyksessä kuin ne on esitetty. Johdannon jälkeisessä luvussa ``Silmän liikeanalyysin tutkimus''  esitellään ja selitetään terminologiaa, jota tutkimuksen aihepiiriin kuuluu sekä esitetään kuinka tietoa tutkimukseen on haettu. 
 
-Tämän jälkeen kolmannessa luvussa ``Silmän liikeanalyysin algoritmit''  esitellään kirjallisuudesta löytyneitä algoritmeja ja vertaillaan niitä toisiinsa kirjallisuuden perusteella. Tämän lisäksi luvussa esitellään taksonomia, jonka perusteella algoritmeja voi luokitella. Luvun perusteella lukija saa käsityksen siitä millaisia liikeanalyysin algoritmit tyyppillisesti ovat ja mitkä ovat kunkin esitellyn algoritmin vahvuudet ja heikkoudet.
+Tämän jälkeen kolmannessa luvussa ``Silmän liikeanalyysin algoritmit''  esitellään kirjallisuudesta löytyneitä algoritmeja ja vertaillaan niitä toisiinsa kirjallisuuden perusteella. Luvun perusteella lukija saa käsityksen siitä millaisia liikeanalyysin algoritmit tyyppillisesti ovat ja mitkä ovat kunkin esitellyn algoritmin vahvuudet ja heikkoudet.
 
 Luvussa neljä ``Fiksaatioiden tunnistaminen liikedatasta''  sovelletaan kirjallisuudesta löydettyjä algoritmeja käytäntöön ja verrataan niiden tuloksia kaupallisen toteutuksen tuottamaan dataan. LISÄÄ TARVITAAN
 
@@ -47,16 +47,16 @@ Hakusanoina lähteiden löytämiseksi käytettiin mm. seuraavia:
 	\item "eye movement analysis"
 \end{itemize}
 
-Hakujen tuloksista luettiin abstraktit läpi ja harkintaa käyttäen seulottiin artikkeleita tarkempaa tutustumista varten. Seulonnassa erityistä huomiota saivat artikkelit, jotka esittelivät tai tutkivat algoritmeja fiksaatioden tunnistamiseksi. Työssä käytetty lähdekirjallisuus on kokonaisuudessaan englanninkielistä ja koostuu pääosin tieteellisissä julkaisuissa ja konfferenssijulkaisuissa esiintyneistä artikkeleista.
+Hakujen tuloksista luettiin abstraktit läpi ja harkintaa käyttäen seulottiin artikkeleita tarkempaa tutustumista varten. Seulonnassa erityistä huomiota saivat artikkelit, jotka esittelivät tai tutkivat algoritmeja fiksaatioden tunnistamiseksi. Työssä käytetty lähdekirjallisuus on kokonaisuudessaan englanninkielistä ja koostuu pääosin tieteellisistä artikkeleista sekä konferenssijulkaisuista.
 
 
-\subsection{Silmän liikeanalyysin tutkimuksen taustaa}
+\subsection{Erilaisia silmänliikkeitä}
 
 Silmän liikkeiden tutkiminen on kiinnostanut tutkijoita pitkään. Jo 1800-luvulla Hering ja Lamare huomasivat, että lukemisen aikana silmän liike ei ole tasaista ja jatkuvaa vasemmalta oikealle etenevää liikettä vaan sisältää nopeaa mikroliikettä sinne tänne. Dodge ehdotti 1916, että sitä nopeaa silmänliikettä, joka tapahtuu kun katse siirtyy paikasta toiseen ruvettaisiin kutsumaan sakkadiksi ranskaksi nykäystä tarkoittavan sanan mukaan.\citep[s.793]{wade2003dodge} Silmän liikkeitä on sekä tahdollisia että tahdottomia ja seuraavaksi esitelläänkin erilaisia nimityksiä tavoille, joilla silmän on havaittu liikkuvan jaoteltuna tahdollisiin liikkeisiin ja tahdottomiin liikkeisiin:
 
 \subsubsection{Tahdolliset silmänliikkeet}  
 \paragraph{Sakkadit}
-Sakkadilla, joka tulee ranskankielisestä nykäystä tarkoittavasta sanasta, tarkoitetaan nopeaa silmänliikettä kun katse siirtyy paikasta toiseen. Sakkadin aikana herkkyys visuaaliselle ärsykkeelle laskee, eli jos koehenkilölle näyttää sakkadin aikana jotakin lyhytaikaista ärsykettä ei tämä rekisteröidy välttämättä ollenkaan. Tälläistä näkökyvyn heikentymistä sakkadin aikana kutsutaan kirjallisuudessa sakkadiseksi supressioksi (engl. saccadic supression).\citep[s.899]{matin1974saccadic} Sakkadin nopeus on monotoninen funktio sen suhteen kuinka paljon silmän täytyy liikkua. Nopeus nousee nopeasti maksimiinsa hieman ennen sakkadin matkan puoliväliä, jonka jälkeen päämärään kohti jatketaan hieman pienemällä vauhdilla. Maksiminopeus sakkadilla voi olla jopa 500\degree /s. Eli maksiminopeutta katse voisi liikkua katseen äärilaidalta toiselle ja takaisin 500 / 360 kertaa sekunnissa. Tyypillisesti sakkadit ovat kuitenkin hyvin lyhyitä esim. lukiessa sakkadien pituudet ovat n. 2\degree eli kestollisesti n. 30ms kun taas maiseman observoinnissa sakkadien pituudet ovat n. 5\degree eli 50ms. \citep[s.373]{rayner1998eye}
+Sakkadilla, joka tulee ranskankielisestä nykäystä tarkoittavasta sanasta, tarkoitetaan nopeaa silmänliikettä kun katse siirtyy paikasta toiseen. Sakkadin aikana herkkyys visuaaliselle ärsykkeelle laskee, eli jos koehenkilölle näyttää sakkadin aikana jotakin lyhytaikaista ärsykettä ei tämä rekisteröidy välttämättä ollenkaan. Tälläistä näkökyvyn heikentymistä sakkadin aikana kutsutaan kirjallisuudessa sakkadiseksi supressioksi (engl. saccadic supression).\citep[s.899]{matin1974saccadic} Sakkadin nopeus on monotoninen funktio sen suhteen kuinka paljon silmän täytyy liikkua. Nopeus nousee nopeasti maksimiinsa hieman ennen sakkadin matkan puoliväliä, jonka jälkeen päämärään kohti jatketaan hieman pienemällä vauhdilla. Maksiminopeus sakkadilla voi olla jopa 500\degree /s. Tyypillisesti sakkadit ovat kuitenkin hyvin lyhyitä esim. lukiessa sakkadien pituudet ovat n. 2\degree eli kestollisesti n. 30ms kun taas maiseman observoinnissa sakkadien pituudet ovat n. 5\degree eli 50ms. \citep[s.373]{rayner1998eye}
 
 \paragraph{Sulava seuraus}
 
@@ -76,11 +76,6 @@ Silmänliikedataa analysoitaessa fiksaatiot ovat usein se, mitä datasta yritet�
 
 Edellä esitetyn fiksaation määritelmän mukaan myös sulavaa seurausta voitaisiin nimittää fiksationaaliseksi silmänliikkeeksi, koska siinä katse pysyy kiinnittyneenä kohteeseen, vaikka liikettä tapahtuisi paljonkin. Työssä esiteltävät dispersiopohjaiset algoritmit eivät tälläistä liikettä tunnistaisi fiksaatioksi kun taas nopeuspohjaiset saattaisivat tehdä tunnistuksen oikein. Tässä työssä käytetyssä kirjallisuudessa asiaa ei kuitenkaan tutkittu.
 
-\subsection{Kuinka silmänliikedataa kerätään}
-
-\subsection{Sovellutuksia silmänliikedatan käytölle}
-
-
 \section{Silmän liikeanalyysin algoritmit}
 \subsection{Yksinkertainen nopeusraja-arvoon perustuva tunnistusalgoritmi I-VT}
 I-VT fiksaationtunnistusalgoritmi on kaikista kirjallisuudesta esiin tulleista algoritmeista vähiten paramitreja vaativa ja sen toiminta-ajatus on helposti ymmärrettävissä. Algoritmin ideana on, että lasketaan jokaisen datapistevälin nopeus ja pidetään pistevälejä joiden nopeus on pienempi kuin asetettu nopeusraja-arvo fiksaatioina ja pistevälejä joiden nopeus on suurempi kuin raja-arvo sakkadeina. Pistevälin nopeus on sama kuin pistevälin pisteiden etäisyys toisistaan, jos oletetaan, että datapisteiden välinen aika on vakio. Kun pistevälien nopeudet on laskettu, yhdistetään algoritmissa peräkkäiset fiksaatiopisteet fiksaatioryhmiksi ja hylätään sakkadipisteet. Lopuksi jokainen fiksaatioryhmä muutetaan muotoon <x,y,d,t>, jossa x:n ja y:n arvot lasketaan ryhmän keskiarvosta kummallekin muuttujalle. t:lle annetaan aika, joka kuului ensimmäiselle fiksaatioryhmään kuuluvalle pisteelle ja d:lle koko fiksaatioryhmän kesto. \citep[s. 73]{salvucci2000}
@@ -88,16 +83,16 @@ I-VT fiksaationtunnistusalgoritmi on kaikista kirjallisuudesta esiin tulleista a
  Jotta I-VT algoritmia voisi käyttää tarvitsee sille määritellä vain yksi parametri, nopeusraja-arvo. Mikäli silmän etäisyys havainnoitavaan kohteeseen tunnetaan voidaan nopeusraja-arvo johtaa kulmanopeudesta, joka silmällä on suhteessa katsottavaan kohteeseen. Esimerkiksi \citet[s. 1099]{itti2005} on käyttänyt kulmanopeuden raja-arvona 20 astetta / sekunti niin kuin myös \citet[s. 73]{salvucci2000}:n mukaan \citep[s. 103-111]{megaw1984}.
 Mikäli etäisyyttä havainnoitavaan kohteeseen ei tunneta niin nopeusraja-arvon määrittämisessä on vain käytettävä eksploratiivista data analyysia aineistoon, jossa otetaan huomioon mm. näytteenottotaajuus.
 
-I-VT on yksinkertainen implementoida kuten liitteestä \emph{\nameref{sec:IVT-implementation}}  voidaan nähdä. Koska algoritmi käsittelee vain pientä osaa datajoukosta kerralla on se erittäin tehokas ja soveltuu hyvin reaaliaikaiseen datan analysointiin. \citep[s. 76]{salvucci2000} Suurimmat ongelmat algoritmilla esiintyvät silloin kun pistevälien nopeudet ovat lähellä raja-arvoa. Tällöin syntyy herkästi paljon fiksaatioryhmiä, joissa on vain muutamia peräkkäisiä pisteitä, jolloin näyttää helposti siltä, että fiksaatiota on todellista enemmän. Tätä ongelmaa on kierretty esimerkiksi ryhmittämällä tarpeeksi lähellä toisiaan olevat fiksaatioita yhteen katsealueiksi. \citep[s. 329]{just1980} Toinen keino ongelman kiertämiseksi on vaatia sakkadeilta minimikestoa. \citep[s. 103-111]{megaw1984}
+I-VT on yksinkertainen implementoida kuten liitteestä \emph {\ref{sec:IVT-implementation}}  voidaan nähdä. Koska algoritmi käsittelee vain pientä osaa datajoukosta kerralla on se erittäin tehokas ja soveltuu hyvin reaaliaikaiseen datan analysointiin. \citep[s. 76]{salvucci2000} Suurimmat ongelmat algoritmilla esiintyvät silloin kun pistevälien nopeudet ovat lähellä raja-arvoa. Tällöin syntyy herkästi paljon fiksaatioryhmiä, joissa on vain muutamia peräkkäisiä pisteitä, jolloin näyttää helposti siltä, että fiksaatiota on todellista enemmän. Tätä ongelmaa on kierretty esimerkiksi ryhmittämällä tarpeeksi lähellä toisiaan olevat fiksaatioita yhteen katsealueiksi. \citep[s. 329]{just1980} Toinen keino ongelman kiertämiseksi on vaatia sakkadeilta minimikestoa. \citep[s. 103-111]{megaw1984}
 
 \subsection{Dispersioraja-arvoon perustuva tunnistusalgoritmi I-DT}
-I-DT tunnistusalgoritmin perustana on havainto siitä, että koska fiksaatiopisteillä on matala nopeus, on niillä taipumus kasaantua lähelle toisiaan. Algoritmi kerää datajoukosta peräkkäisten datapisteiden ryhmiä, joiden dispersio on annettua raja-arvoa pienempi ja merkitsee ne fiksaatioiksi. Tämän lisäksi, koska fiksaatiot ovat tyypillisesti kestoltaan yli 100ms mittaisia, asetetaan algoritmissa myös minimi kestoaika, joka fiksaation tulee täyttää tullakseen tunnistetuksi. \citep[s. 74]{salvucci2000} Dispersiolla tarkoitetaan hajontaa, joka joukolla pisteitä on toisistaan ja se voidaan määritellä monella tavalla, joista muutama esitellään myös tässä osiossa.
+I-DT tunnistusalgoritmin perustana on havainto siitä, että koska fiksaatiopisteillä on matala nopeus, on niillä taipumus kasaantua lähelle toisiaan. Algoritmi kerää datajoukosta peräkkäisten datapisteiden ryhmiä, joiden dispersio on annettua raja-arvoa pienempi ja merkitsee ne fiksaatioiksi. Tämän lisäksi, koska fiksaatiot ovat tyypillisesti kestoltaan yli 100ms mittaisia, asetetaan algoritmissa myös minimi kestoaika, joka fiksaation tulee täyttää tullakseen tunnistetuksi. \citep[s. 74]{salvucci2000} Dispersiolla tarkoitetaan spatiaalista hajontaa, joka joukolla pisteitä on toisistaan ja se voidaan määritellä monella tavalla, joista muutama esitellään myös tässä osiossa.
 
 Algoritmin toteutuksessa voidaan käyttää ns. liikkuvaa ikkunaa yli peräkkäisten datapisteiden, josta kokeillaan täyttääkö ikkuna annetun dispersioehdon. Ikkuna alkaa datajoukon alusta ja ylittää aluksi minimikestoa vastaavaan määrän datapisteitä. Jos ikkuna täyttää dispersioehdon on kyseisen ikkunan datajoukko osa fiksaatiota jolloin ikkunan oikeaa etureunaa siirretään datapiste kerrallaan eteenpäin kunnes dispersioehto ei enää täyty. Kun fiksaation oikea reuna löytyy tallennetaan fiksaatio sen hetkisen ikkunan datapisteiden massakeskipisteen kordinaatteihin, jonka lisäksi fiksaatiolle asetetaan aloitusaika ja kesto. Kun fiksaatio on löytynyt, siirretään ikkuna alkamaan tunnistettua fiksaatiota seuraavasta pisteestä. Mikäli ikkuna ei täytä dispersioehtoa siirretään koko ikkunaa piste kerrallaan eteenpäin kunnes dispersioehto täyttyy tai datapisteet loppuvat. \citep[s.26-27]{gale1984}
 
-Dispersioehto voidaan määritellä algoritmissa monella eri tavalla. Helposti ensimmäisenä mieleen tuleva tapa olisi pitää ehtona sitä, että jokaisen pisteen tulee olla maksimissaan ehdon määräämän etäisyyden päässä toisistaan. Tämän tavan heikkoutena on kuitenkin se, että jokaista pistettä pitää verrata jokaiseen toiseen pisteeseen, jolloin operaatioita tulee \(O(n^2)\). \citep[s.111] {shic2008} Edellistä tapaa voidaan approksimoida nopeasti laskemalla yhteen pisteiden isoin horisontaalinen ja vertikaalinen etäisyys toisistaan 
+Dispersioehto voidaan määritellä algoritmissa monella eri tavalla. Helposti ensimmäisenä mieleen tuleva tapa olisi pitää ehtona sitä, että jokaisen pisteen tulee olla maksimissaan ehdon määräämän etäisyyden päässä toisistaan. Tämän tavan heikkoutena on kuitenkin se, että jokaista pistettä pitää verrata jokaiseen toiseen pisteeseen, jolloin operaatioita tulee \(O(n^2)\). \citep[s.111] {shic2008} Edellistä tapaa voidaan approksimoida nopeasti laskemalla yhteen pisteiden isoin horisontaalinen ja vertikaalinen etäisyys toisistaan \citet[s. 74]{salvucci2000}:n kaavalla:
 \[
-D = [max(x) - min(x)] + [max(y) - min(y)]  \text{\citep[s. 74]{salvucci2000},}
+D = [max(x) - min(x)] + [max(y) - min(y)]
 \]
 
 jolloin kun uutta pistettä lisätään fiksaatioon, tarvitsee sitä verrata vain x:n ja y:n ääriarvoja vastaan.
@@ -106,7 +101,7 @@ Kolmas keino dispersioehdon määrittämiseksi on massakeskipiste-etäisyys meto
 
 I-DT tarvitsee siis toimiakseen kahta parametria, dispersioraja-arvoa sekä fiksaation minimikestoa. Mikäli silmän etäisyys katsottavaan kohteeseen on tunnettu voidaan dispersioraja-arvona käyttää etäisyyttä, joka syntyy vastakkaiselle kateetille 0,5-1 asteen kulmasta silmästä kohteeseen. Minimikestoksi voidaan antaa jokin arvo 100ms ja 200ms väliltä. \citep[s. 74]{salvucci2000}
 
-I-DT on hieman monimutkaisempi implementoida kuin I-VT kuten liitteestä \emph{\nameref{sec:IDT-implementation}} voidaan nähdä, mutta edelleen kuitenkin kohtuullisen yksinkertainen. Algoritmi toimii lineaarisessa ajassa, jotenka se soveltuu I-VT:n tavoin reaaliaikaiseen fiksaatioiden tunnistukseen. Koska algoritmissa käytetään minimikestoa fiksaatiolle ei se kärsi samalla tavalla huojunnasta fiksaation ja sakkadin välillä, niin kuin I-VT voi tehdä. Suurimpana heikkoutena I-DT:llä on vahvasti toisistaan riippuvat kaksi parametria. Esimerkiksi pienellä dispersioraja-arvolla ja suurella fiksaation minimiajalla ei välttämättä löydetä yhtään fiksaatiota. Parametrien riippuvuus toisistaan tarkoittaa sitä, että niiden asettamisessa on oltava erityisen huolellinen.
+I-DT on hieman monimutkaisempi implementoida kuin I-VT kuten liitteestä \emph{\ref{sec:IDT-implementation}} voidaan nähdä, mutta edelleen kuitenkin kohtuullisen yksinkertainen. Algoritmi toimii lineaarisessa ajassa, jotenka se soveltuu I-VT:n tavoin reaaliaikaiseen fiksaatioiden tunnistukseen. Koska algoritmissa käytetään minimikestoa fiksaatiolle ei se kärsi samalla tavalla huojunnasta fiksaation ja sakkadin välillä, niin kuin I-VT voi tehdä. Suurimpana heikkoutena I-DT:llä on vahvasti toisistaan riippuvat kaksi parametria. Esimerkiksi pienellä dispersioraja-arvolla ja suurella fiksaation minimiajalla ei välttämättä löydetä yhtään fiksaatiota. Parametrien riippuvuus toisistaan tarkoittaa sitä, että niiden asettamisessa on oltava erityisen huolellinen.
 
 
 \subsection{Markovin piilomalliin perustuva tunnistusalgoritmi I-HMM}
@@ -150,7 +145,7 @@ Jotta erilaisia fiksaationtunnistusalgoritmeja olisi mahdollista verrata toisiin
 \citet[s. 4]{komogortsev2010} esittelee julkaisussaan erilaisia metriikoita fiksaationtunnistusalgoritmien vertailemiseen. Yksi näistä metriikoista on kvantitatiivinen fiksaatiopisteytys (engl. Fixation Quantitative Score, FQnS). Metriikan käyttämiseen tarvitaan referenssijoukko datapisteitä, joista tiedetään esittävätkö pisteet fiksaatiota vai sakkadeja. Tälläinen datajoukko pitää käytännössä annotoida käsin tai vaihtoehtoisesti voidaan käyttää referenssinä katseentunnituslaitteen annotoimaa dataa niin kuin tässä työssä tullaan tekemään. Metriikan ideana on verrata algoritmin tunnistamien fiksaatioiden määrää referenssijoukossa olevien fiksaatioiden määrään.
 
 \[
-FQnS = 100 * {{tunnistettujen\ fiksaatioiden\ lkm} \over {referenssifiksaatiot}}
+FQnS = 100 * {{tunnistettujen\ fiksaatioiden\ lkm} \over {referenssifiksaatioiden lkm}}
 \]
  
  Metriikan laskennassa käydään jokainen laskettavan datajoukon piste läpi ja mikäli piste on on arvioitu fiksaatioksi niin verrataan sitä vastaavan ajankohdan pisteeseen referenssijoukossa. Mikäli referenssijoukossa tuona ajankohtana oleva piste on fiksaatio niin kasvatetaan tunnistettujen fiksaatioiden määrää yhdellä. On huomattava, että FQnS:n laskennassa ei rangaista, mikäli referenssijoukon sakkadia luullaan fiksaatioksi. Näin ollen pelkästään tätä mittaria maksimoimalla ei saada hyvin toimivaa algoritmia, koska mittari voidaan maksimoida vain arvaamalla kaikki pisteet fiksaatioiksi.
@@ -213,15 +208,15 @@ Taulukon \ref{table:alg_ominaisuudet} avulla voidaan tarkastella aiemmin tässä
 Tässä luvussa tulemme käyttämään I-VT nopeusraja-arvo-algoritmia sekä I-DT dispersioraja-arvo-algoritmia tunnistamaan fiksaatioita oikeasta silmänliikedatasta. Vertailemme algoritmien tuottamia tuloksia toisiinsa sekä kaupallisen katseentunnistajan tuottamiin tuloksiin. Tämän lisäksi tutkimme kuinka tunnistusalgoritmien parametrien muuttaminen vaikuttaa saatuihin tuloksiin.
 
 \subsection{Koejärjestely}
-Algoritmien vertailemiseen käytetään Aalto-Yliopistossa Mediatekniikan laitoksella 2013 tehdyn tutkimuksen katseentunnistusosion raakadatoja.(TARKKA VIITE?) Tutkimuksessa koehenkilöille näytettiin kuvia yhdeksästä uutisesta kymmenen kuvaa per uutinen. Jokaista kuvaa näytettiin viisi sekuntia ja jokaisen kuvan katsomisesta kerättiin silmänliikedataa. Datan keräämiseen käytettiin EYE-TRACKER VISION(OIKEA NIMI?)-katseentunnistuslaitetta, joka oli asetettuna koehenkilön päähän. MITEN LAITE TOIMII?. Näytteenottotaajuus käytetyllä katseentunnistuslaitteella on 30Hz eli uusi datapiste saadaan n. 33ms välein. Markkinoilta löytyy myös katseentunnistuslaitteita kuten SMI HiSpeed, joilla näytteenottotaajuus on niinkin korkea kuin 1250Hz.\citep[s.197]{nystrom2010} Kun tarkoituksena on selvittää mihin ihmisen huomio kiinnittyy kuvia katsellessa, eikä esim. mikrosakkadien mekaniikkaa, voidaan 30Hz näytteenottotaajuutta pitää riittävänä tarkkuutena.
+Algoritmien vertailemiseen käytetään Aalto-Yliopistossa Mediatekniikan laitoksella 2013 tehdyn tutkimuksen katseentunnistusosion raakadatoja. Tutkimuksessa koehenkilöille näytettiin kuvia yhdeksästä uutisesta kymmenen kuvaa per uutinen. Jokaista kuvaa näytettiin viisi sekuntia ja jokaisen kuvan katsomisesta kerättiin silmänliikedataa. Datan keräämiseen käytettiin SMI RED 250-katseentunnistuslaitetta, joka oli asetettuna koehenkilön päähän. Näytteenottotaajuus käytetyllä katseentunnistuslaitteella on 250Hz eli uusi datapiste saadaan n. 4ms välein. Markkinoilta löytyy myös katseentunnistuslaitteita kuten SMI HiSpeed, joilla näytteenottotaajuus on niinkin korkea kuin 1250Hz.\citep[s.197]{nystrom2010} Kun tarkoituksena on selvittää mihin ihmisen huomio kiinnittyy kuvia katsellessa, eikä esim. mikrosakkadien mekaniikkaa, voidaan 250Hz näytteenottotaajuutta pitää kuitenkin jo aivan riittävänä tarkkuutena.
 
 Tätä työtä varten uutiskuvista valittiin yksi kuva (Kuva \ref{fig:news-pic}), jonka katsomisesta kerättyjä datoja käytetään tunnistusalgoritmien vertailuun. Kuvaksi valittiin kuvajoukosta sellainen kuva, josta löytyy selkeitä kiinnekohtia, joihin katseella olisi mahdollista hakeutua. Koehenkilö, jonka silmänliikedataa käytettäisiin valittiin joukosta sattumanvaraisesti kuitenkin niin, että raakadataa silmäilemällä katsottiin, että joukossa ei ole huomattavaa määrää häiriödataa. Häiriödatalla tässä tapauksessa tarkoitetaan esim. silmien kiinniolosta johtuvaa häiriötä tai muita virheitä, joita raakadatasta oli mahdollista nähdä.
 
-I-VT ja I-DT algoritmien toteuttamisessa, raakadatan lukemiseen, että syöttämiseen algoritmeille käytettiin Clojure-ohjelmointikieltä. I-VT ja I-DT algoritmien toteutuskoodi on nähtävillä liitteissä \emph{\nameref{sec:IVT-implementation}} ja \emph{\nameref{sec:IDT-implementation}}. Kokonaisuudessaan vertailujen tekemiseen käytetty ohjelmakoodi on nähtävissä osoitteessa: \href{https://github.com/Dolmio/eyefixations}{https://github.com/Dolmio/eyefixations}. 
+I-VT ja I-DT algoritmien toteuttamisessa, raakadatan lukemiseen, että syöttämiseen algoritmeille käytettiin Clojure-ohjelmointikieltä. I-VT ja I-DT algoritmien toteutuskoodi on nähtävillä liitteissä \emph{\nameref{sec:IVT-implementation}} ja \emph{\nameref{sec:IDT-implementation}}.\footnote{Vertailujen tekemiseen käytetty ohjelmakoodi: \href{https://github.com/Dolmio/eyefixations}{https://github.com/Dolmio/eyefixations}} 
 
 \subsection{Tulokset}
 
-EYE-TRACKER VISION(OIKEA NIMI?) tunnistamat fiksaatiot ovat nähtävissä kuvasta \ref{fig:sample-fixations}. Fiksaatioita löytyi viiden sekunnin aikana 16 kappaletta. Keskimääräinen fiksaation kesto oli 250ms, joka tarkoittaa sitä että neljä sekuntia viidestä määriteltiin olevan fiksaatiossa. Kun katsotaan kuvaa \ref{fig:sample-fixations} voidaan nähdä kuinka löydetyt fiksaatiot kiertävät kuvasta löytyviä kiinnostavia kohteita kuten kasvoja, rummun, tekstejä ja ihmisiä.Kun verrataan kuvaa \ref{fig:sample-fixations} kuvaan \ref{fig:raw-data}, johon on piirretty jokainen silmänliiketunnistimen keräämä datapiste voidaan nähdä, että silmänliikedatasta on onnistuttu nostamaan esille oleellinen osa vähintäänkin kohtuullisesti.    
+RED 250-katseentunnistuslaitteen löytämät fiksaatiot ovat nähtävissä kuvasta \ref{fig:sample-fixations}. Fiksaatioita löytyi viiden sekunnin aikana 16 kappaletta. Keskimääräinen fiksaation kesto oli 250ms, joka tarkoittaa sitä että neljä sekuntia viidestä määriteltiin olevan fiksaatiossa. Kun katsotaan kuvaa \ref{fig:sample-fixations} voidaan nähdä kuinka löydetyt fiksaatiot kiertävät kuvasta löytyviä kiinnostavia kohteita kuten kasvoja, rummun, tekstejä ja ihmisiä.Kun verrataan kuvaa \ref{fig:sample-fixations} kuvaan \ref{fig:raw-data}, johon on piirretty jokainen silmänliiketunnistimen keräämä datapiste voidaan nähdä, että silmänliikedatasta on onnistuttu nostamaan esille oleellinen osa vähintäänkin kohtuullisesti.    
 
 \begin{figure}[H]
 \centering
@@ -234,8 +229,8 @@ EYE-TRACKER VISION(OIKEA NIMI?) tunnistamat fiksaatiot ovat nähtävissä kuvast
 \hspace{.5cm}
 \begin{minipage}{.45\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{sample-fixations.jpg}
-  \captionof{figure}{Raakadata koehenkilöltä MUUTA KUVA}
+  \includegraphics[width=1\linewidth]{raw-data.jpg}
+  \captionof{figure}{Raakadata koehenkilöltä}
   \label{fig:raw-data}
 \end{minipage}
 \end{figure}
@@ -252,7 +247,7 @@ EYE-TRACKER VISION(OIKEA NIMI?) tunnistamat fiksaatiot ovat nähtävissä kuvast
 
 \end{figure}
  
-\subsection{I-VT nopeusraja-arvoalgoritmi}
+\subsubsection{I-VT nopeusraja-arvoalgoritmi}
 Syötteenä nopeusraja-arvoalgoritmille käytettiin kuvassa \ref{fig:raw-data} näkyvää raakadataa. Algoritmi ajettiin nopeusraja-arvon arvoilla 1-300, jotta pystyttäisiin näkemään kuinka parametrin arvon muuttaminen vaikuttaa löytyvien fiksaatioiden määrään ja kestoon. Kuvaajasta kuvassa \ref{fig:velocity-threshold-avg-chart} voidaan nähdä kuinka tunnistettujen fiksaatioiden määrä lähestyy yhtä nopeusraja-arvon kasvaessa. Samaan aikaan nopeusraja-arvon kasvaessa myös löydettyjen fiksaatioiden keskimääräinen kesto nousee. Mikäli nopeusraja-arvo johdetaan kirjallisuudesta löytyneestä silmän ja katsottavan kohteen kulmanopeuden raja-arvosta 20 astetta / sekunti \citep[s. 73]{salvucci2000}, niin nopeusraja-arvoksi pikseleitä / datapiste saadaan 34. Arvo on laskettu kaavalla: 
 
 \begin{equation}
@@ -307,12 +302,10 @@ Nopeusraja-arvolla 34 nopeusraja-arvoalgoritmi löytää datasta 8 fiksaatiota f
 \end{figure}
 
  
-\subsection{I-DT dispersioraja-arvoalgoritmi}
+\subsubsection{I-DT dispersioraja-arvoalgoritmi}
+Dispersioraja-arvoalgoritmille käytettiin syötteenä samaa kuvan \ref{fig:raw-data} dataa kuin nopeusraja-arvoalgoritmille. Dispersioraja-arvoalgoritmi käyttää kahta parametria: dispersioraja-arvoa sekä fiksaation minimipituutta.
  
 
-\label{sec:esimluku}
-
- --------------------------------------------------------------------
 
 \section{Johtopäätökset}
 
